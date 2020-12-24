@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+	{% block css %} 
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+		<!-- <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css"> -->
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/all.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/regular.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/brands.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/light.css' %}">
+		
+		<link rel="stylesheet" type="text/css" href="{% static 'css/fakeLoader.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	{% endblock css %}
+
+	{% block title %} <title>Офармить заказ</title> {% endblock title %}
+
+	{% block body %}	
+
+		<section class="container-fluid pt-5 pb-5 mt-5" style="min-height: 82vh;">
+			<div class="container border mt-5">
+
+				<div class="row text-center">
+					<div class="col-md-12 pt-lg-2 pt-md-5">
+						<h4>Информация о даставки</h4>
+					</div>
+				</div>
+				
+				<div class="row p-5">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-7 m-auto">
+						<div class="form-wrapper">
+
+							<form _lpchecked="1" action="" method="post">
+								{% csrf_token %}
+                                {{ form.non_field_errors }}
+								<div class="row">
+									<div class="col-12 col-sm-12 col-md-12 col-lg-6">
+										<div class="form-group">
+											<!-- <input type="text" class="form-control" placeholder="Имя"> -->
+											{{ form.name.errors }}
+                                            {{ form.name }}
+
+										</div>
+									</div>
+									<div class="col-12 col-sm-12 col-md-12 col-lg-6">
+										<div class="form-group">
+											<!-- <input type="number" class="form-control" placeholder="Телефонный номер"> -->
+											{{ form.phone.errors }}
+                                            {{ form.phone }}
+										</div>
+									</div>
+									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+										<div class="form-group">
+											<!-- <input type="text" class="form-control" placeholder="Полный адрес"> -->
+											{{ form.address.errors }}
+											{{ form.address }} 
+											
+											{{ form.user.errors }}
+                                       		{{ form.user }}
+										</div>
+									</div>
+									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+										<div class="form-group">
+											<!-- <textarea rows="10" cols="80" style="width: 100%;"></textarea>	 -->
+											{{ form.message.errors }}
+                                            {{ form.message }}
+										</div>
+									</div>
+								</div>
+								<div class="mt-4 mb-2 form-inline" style="justify-content:space-between" >
+									{% if previous_path %}
+										<a href="{{ previous_path }}" class="btn checkout_prew_bnt ml-2">Назад</a>
+									{% else %}
+										<a href="{% url 'Core:home-view' %}" class="btn checkout_prew_bnt ml-2">Назад</a>
+									{% endif %}
+									
+									<button type="submit" class="btn checkout_next_bnt" style="margin-left:13rem">Офармить заказ</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<!-- JavaScript for get  user  -->
+					<script>
+						var current_user = "{{ request.user.id }}";
+						document.getElementById("curront-user").value = current_user;
+					</script>
+					<!-- end JavaScript for get  user  -->
+
+					<div class="col-12 col-sm-12 col-md-12 col-lg-5 border pl-0 pr-0">
+						<ul class="list-unstyled mb-0 mt-0 pt-3 pl-3 pr-3" style="height: 26.7vh; width: 100%; overflow-y: scroll;">
+							{% for item in items %}
+								<li class="row border-bottom pb-2 ">
+									<div class="col-12 col-sm-12 col-md-6 col-lg-3">
+										<img src="{{ item.product.imageURL }}" width="70" height="70">
+									</div>
+									<div class="col-12 col-sm-12 col-md-2 col-lg-5 pt-3 pl-0 pr-0">
+										<h6>{{ item.product.name }}</h6>
+									</div>
+									<div class="col-12 col-sm-12 col-md-2 col-lg-2 pt-3 pl-0 pr-0">x{{ item.quantity }}</div>
+									<div class="col-12 col-sm-12 col-md-2 col-lg-2 pt-3 pl-0 pr-0">{{ item.get_total }}<br><small>{{ item.product.currency }}</small></div>
+								</li>
+							{% endfor %}
+						</ul>
+							<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center font-weight-bold pt-3 pb-3">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+							</div>
+							<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center font-weight-bold pt-4 bg-light">
+								<h5>Быстрое общение</h5>
+								<h5>+998 97 704 00 16</h5>
+							</div>
+						
+
+					</div>
+				<div>	
+				
+				</div>
+				</div>
+			</div>
+		</section>
+	{% endblock body %}
+
+	{% block js %}
+		<script src="{% static 'bootstrap/js/jquery-3.2.1.min.js' %}"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script src="{% static 'js/fakeLoader.js' %}"></script>
+		<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+		<script src="{% static 'js/wow.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script>
+			new WOW().init();
+		</script>
+	{% endblock js %}

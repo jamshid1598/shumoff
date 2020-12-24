@@ -1,0 +1,115 @@
+{% load static %}
+
+<header class="container-fluid pl-0 pr-0 fixed-top pt-1 header">
+    <div class="container header" >
+
+    
+    <nav class="header m-auto navbar navbar-dark navbar-expand-lg fixed-top">
+        
+        <a class="navbar-brand " href="{% url 'Core:home-view' %}">
+            <img src="{% static 'img/svg/logo-shumoff-white.svg' %}"  width="150" height="50">
+        </a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon fa-2x m-sm-3 text-danger"></span>
+        </button>
+
+        <div class="collapse navbar-collapse text-center" id="navbarCollapse">
+          <ul class="navbar-nav m-auto text-center">
+            
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'Core:home-view' %}">Главная  <span class="sr-only">(current)</span></a>
+            </li>
+
+
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="home.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Каталог
+                </a>
+                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                    {% for category in category_list %}
+                        {% if category.primary %}
+                            <a class="dropdown-item text-center catalogDropdownItems" href="{% url 'Core:category-detail-view' category.pk %}">{{ category.category_name }}</a>
+                        {% endif %}
+                    {% empty %}
+                            <span><strong>нет категорий ;)</strong></span>
+                    {% endfor %}
+                    <hr>
+                    {% for category in category_list %}
+                        {% if not category.primary %}
+                            <a class="dropdown-item text-center catalogDropdownItems" href="{% url 'Core:home-view' %}#recipeCarousel">{{ category.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link " href="{% url 'Core:install-veiw' %}" ">Установка</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'Core:article-veiw' %}">Статьи</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'User:contact' %}">Контакты</a>
+            </li>
+           
+          </ul>
+         
+        <div class="float-lg-right headerForm">        
+            <span class="pl-3 span_search m-auto"><i class="far fa-search text-white" data-toggle="modal" data-target="#searchModal" ></i></span>
+            <span class="pl-2"><a href="{% url 'Core:cart-detail-view' %}" onclick="open_cart_panel(this)" id="cart-id"><i class="fas fa-cart-plus text-white"></i></a></span>
+            <span class="pl-2 dropdown text-center" >
+                <!-- <img src="{% static 'img/icon/user.png' %}" width="30" height="30" class="dropdown-toggle userImg" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                <i class="far fa-user dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></i>
+                <div class="dropdown-menu dropdown-menu-right text-center headerUserForm"  aria-labelledby="userDropdown">
+                    {% if request.user.is_authenticated %}
+                        <strong class="dropdown-item border-bottom"><h5>Привет {{ request.user.first_name }}</h5></strong>
+                        <a class="dropdown-item" href="{% url 'Core:customer-profile-view' %}">Buyurtmalarim</a>
+                        {% if request.user.is_superuser %}
+                            <a class="dropdown-item" href="{% url 'Core:admin-veiw' %}">Buyurtmalar</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Chiqish</a>             
+                    {% else %}
+                        <a class="dropdown-item" href="{% url 'login' %}?next={{request.path}}">Kirish</a>     
+                        <a class="dropdown-item" href="{% url 'User:register' %}">Ro'yhatdan o'tish</a><br>
+                        {% endif %}
+                    </div>        
+                </span>
+      
+            </div>
+               
+            </div>
+          </nav>
+        </div>    
+    </header>                        
+
+
+      <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog searchModalDialog" role="document" style="min-height: 300px; min-width: 800px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Окно поиска</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span class="fa-2x text-danger" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                
+                    <form action="{% url 'Core:search_results' %}" method="get">
+                                        
+                            <div class="input-group mb-3">
+                                <input name="q" type="text" class="form-control" placeholder="Введите название продукта, который вы ищете" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button type="submit" class="input-group-text" id="basic-addon2">поиск</button>
+                                </div>
+                              </div>        
+
+                            
+                    </form>
+                
+            </div>
+            
+          </div>
+        </div>
+      </div>

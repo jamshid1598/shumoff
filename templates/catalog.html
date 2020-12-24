@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load thumbnail %}
+
+	{% block css %} 
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/all.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/regular.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/brands.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-pro-5.12.0-web/css/light.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/fakeLoader.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+		<style>
+            /* Popup container - can be anything you want */
+            .popup {
+              position: relative;
+              display: inline-block;
+              cursor: pointer;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+            
+            /* The actual popup */
+            .popup .popuptext {
+              visibility: hidden;
+              width: 160px;
+              background-color: #555;
+              color: #fff;
+              text-align: center;
+              border-radius: 6px;
+              padding: 8px 0;
+              position: absolute;
+              z-index: 1;
+              bottom: 125%;
+              left: 50%;
+              margin-left: -80px;
+            }
+            
+            /* Popup arrow */
+            .popup .popuptext::after {
+              content: "";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              margin-left: -5px;
+              border-width: 5px;
+              border-style: solid;
+              border-color: #555 transparent transparent transparent;
+            }
+            
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+              visibility: visible;
+              -webkit-animation: fadeIn 1s;
+              animation: fadeIn 1s;
+            }
+            
+            /* Add animation (fade in the popup) */
+            @-webkit-keyframes fadeIn {
+              from {opacity: 0;} 
+              to {opacity: 1;}
+            }
+            
+            @keyframes fadeIn {
+              from {opacity: 0;}
+              to {opacity:1 ;}
+            }
+            </style>
+	{% endblock css %} 
+
+
+	{% block title %} <title> {{ category.category_name }} </title> {% endblock title %}
+
+	{% block body %}
+
+	<section class="container vibration_absorption_section pt-5 pb-5 pl-0 pr-0 mt-5" style="min-height:74vh;">
+		
+		{% if category.product_category.all %}
+	
+			<div class="row border mt-5">
+
+				<div class="col-12 col-sm-12 col-md-12 col-lg-3 pl-0 pr-0 pt-lg-0 pt-md-5">
+					<ul class="list-unstyled mb-0 mt-0 vibration_absorption_ul">
+						<li class="p-2 font-weight-bold">{{ category.category_name }}</li>
+											
+						{% for product in category.product_category.all %}
+							<li class="p-2 border vibration-item" >
+								<a href="{% url 'Core:category-detail-view' category.pk product.slug %}"  class="catologProductItems" >
+									{{ product.name }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+
+				
+						<div class="col-12 col-sm-12 col-md-12 col-lg-9 pl-0 pr-0 vibration_absorption_title">
+
+							<!-- End Main Body -->
+							<div class="row">
+								<dic class="col-12 col-sm-12 col-md-12 col-lg-12">
+									<h5 class="p-2 font-weight-bold border-left catalogProductName">{{ product.name }}</h5>
+								</dic>
+							</div>
+
+							<div class="card imglist ">
+								{% thumbnail product.image "1000" as big %}
+									{% thumbnail product.image "500" crop="center" as small %}
+										<a href="{{ big.url }}" class="p-1" data-fancybox="true" data-caption="{{ product.caption|default_if_none:'Image' }}">
+											<img src="{{ small.url }}" width="100%" alt="">
+										</a>
+									{% endthumbnail %}
+								{% endthumbnail %}
+
+								<div class="card-body row">
+									{% if product.product_images.all|length == 3 %}
+										{% for image in product.product_images.all %}
+											<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">	
+												{% thumbnail image.images "1000" as big %}
+													{% thumbnail image.images "150" crop="center" as small %}
+														<a href="{{ big.url }}" class="p-1" data-fancybox="true" data-caption="{{ product.caption|default_if_none:'Image' }}">
+															<img src="{{ small.url }}" width="100%" height="200" alt="" class="catalogImg">
+														</a>
+													{% endthumbnail %}
+												{% endthumbnail %}	
+											</div>
+										{% endfor %}
+									{% elif product.product_images.all|length == 2 %}
+										{% for image in product.product_images.all %}
+											<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+												{% thumbnail image.images "1000" as big %}
+													{% thumbnail image.images "50x50" crop="center" as small %}
+														<a href="{{ big.url }}" class="p-1" data-fancybox="true" data-caption="{{ product.caption|default_if_none:'Image' }}">
+															<img src="{{ small.url }}" width="100%" height="200" alt="" class="catalogImg">
+														</a>
+													{% endthumbnail %}
+												{% endthumbnail %}
+											</div>
+										{% endfor %}
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="80%" height="200" class="catalogImg">
+											</a>
+										</div>
+									{% elif product.product_images.all|length == 1 %}
+										{% for image in product.product_images.all %}
+											<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+												{% thumbnail image.images "1000" as big %}
+													{% thumbnail image.images "50x50" crop="center" as small %}
+														<a href="{{ big.url }}" class="p-1" data-fancybox="true" data-caption="{{ product.caption|default_if_none:'Image' }}">
+															<img src="{{ small.url }}" width="100%" height="200"  alt="" class="catalogImg">
+														</a>
+													{% endthumbnail %}
+												{% endthumbnail %}
+											</div>
+										{% endfor %}
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="200" class="catalogImg">
+											</a>
+										</div>
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="200" class="catalogImg">
+											</a>
+										</div>
+									{% else %}
+									
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="200" class="catalogImg">
+											</a>
+										</div>
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="200" class="catalogImg">
+											</a>
+										</div>
+										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" class="p-1" data-fancybox="true" data-caption="Shum Off Center">
+												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="200" class="catalogImg">
+											</a>
+										</div>
+									{% endif %}
+								</div>
+								
+								<div class="body p-3">
+									{{ product.description|safe }} 
+								</div>
+								<div>
+									<div class="justify-content-between form-inline p-1 pb-2">
+										{% if product.discount %}
+											<button class="btn btn-secondary wow flash">Скидка: 
+											<span class="h4">
+												<del>
+													<small>
+														{{ product.price }}  {{ product.currency}}
+													</small>
+												</del> 
+												{{ product.discount }} 
+											</span> 
+											{{ product.currency}}
+										</button>
+										{% else %}  
+										<button class="btn btn-secondary wow flash">Цена: 
+											<span class="h4">
+												{{ product.price }}
+											</span> 
+											{{ product.currency}}
+										</button>
+										{% endif %}
+										<button onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" class="btn btn-success add-to-basket popup">Добавить на карту
+											<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a>
+											<p class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</p>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<!-- End Main Body -->
+
+						</div>
+	
+
+			</div>
+			<div class="row pt-5 pb-5">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+					<img src="{{ category.imageURL }}" width="100%" >
+				</div>
+			</div>
+		{% else %}
+			<h3 class="text-center " style="color: coral; padding-top:30vh; ">Нет продуктов, которых можно избежать ;)</h3>
+		{% endif %}
+
+	</section>
+
+	{% endblock body %}
+
+
+
+	{% block js %} 
+		<script src="{% static 'bootstrap/js/jquery-3.2.1.min.js' %}"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script src="{% static 'js/fakeLoader.js' %}"></script>
+		<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+		<script src="{% static 'js/wow.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script>
+		new WOW().init();
+		</script>
+	{% endblock js %}
+		

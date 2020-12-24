@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+        {% block css %} {% endblock css %}
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+       
+        <script type="text/javascript">
+            var user = '{{request.user}}'
+
+            function getToken(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getToken('csrftoken')
+
+            function getCookie(name) {
+                // Split cookie string and get all individual name=value pairs in an array
+                var cookieArr = document.cookie.split(";");
+
+                // Loop through the array elements
+                for(var i = 0; i < cookieArr.length; i++) {
+                    var cookiePair = cookieArr[i].split("=");
+
+                    /* Removing whitespace at the beginning of the cookie name
+                    and compare it with the given string */
+                    if(name == cookiePair[0].trim()) {
+                        // Decode the cookie value and return
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+
+                // Return null if not found
+                return null;
+            }
+        
+        </script>
+        {% block title %}  {% endblock title %}
+    </head>
+    <body>
+        <!-- <div class="fakeLoader"></div> -->
+        <button class="btn btn-top" title="Прокрутка вверх"><i class="fa fa-angle-up"></i></button>
+        
+        <!-- navbar -->
+        {% include "includes/header.html" %}
+        <!-- end navbar -->
+
+        <!-- Body -->
+        {% block body %}
+
+        {% endblock body %}
+        <!-- end body -->
+
+        <!-- footer -->
+        {% include "includes/footer.html" %}
+        <!-- end footer -->
+
+        {% block js %} {% endblock js %}
+        
+        <script type="text/javascript" src="{% static 'js/cart-script.js' %}"></script>
+
+    </body>
+</html>
+
+
+
+
+
+
+

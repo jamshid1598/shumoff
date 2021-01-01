@@ -1,17 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
 
 
-@media (max-width: 768px) {
-
-
-    .carousel-inner .carousel-item > div {
-        display: none;
-    }
-    .carousel-inner .carousel-item > div:first-child {
-        display: block;
-    }
-}
-
 .carousel-inner .carousel-item.active,
 .carousel-inner .carousel-item-next,
 .carousel-inner .carousel-item-prev {
@@ -35,15 +24,6 @@
 .carousel-inner .carousel-item-right,
 .carousel-inner .carousel-item-left{ 
   transform: translateX(0);
-}
-
-    @media (max-width: 768px) {
-    .carousel-inner .carousel-item > div {
-        display: none;
-    }
-    .carousel-inner .carousel-item > div:first-child {
-        display: block;
-    }
 }
 
 .carousel-inner .carousel-item.active,
@@ -85,35 +65,53 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#carousel .carousel-item {
+    /* height: 80vh; */
+    width: 100%;
+    /* min-height: 350px; */
+    background: no-repeat center center scroll;
+    background-size: cover;
+  }
+  
+  #carousel .carousel-inner .carousel-item {
+    transition: -webkit-transform 2s ease;
+    transition: transform 2s ease;
+    transition: transform 2s ease, -webkit-transform 2s ease;
+  }
+  
+  #carousel .carousel-item .caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    color: white;
+    animation-duration: 1s;
+    animation-delay: 2s;
+  }
+  
+  #carousel .caption h2 {
+    animation-duration: 1s;
+    animation-delay: 2s;
+  }
+  
+  #carousel .caption p {
+    animation-duration: 1s;
+    animation-delay: 2.2s;
+  }
+  
+  #carousel .caption a {
+    animation-duration: 1s;
+    animation-delay: 2.4s;
+  }
+  
 
 
 
 * {
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Roboto', sans-serif;
   }
   body{
-      font-size:20px;
+      font-size:16px;
   }
   .header {
       /* height: 75px; */
@@ -124,54 +122,20 @@
     display: block;
   }
 
-
-  .search_header_container{
-      margin-top: -10vh;  
+  .caruselCaption{
+    margin-left:-10rem; 
+    margin-top:-30rem; 
+    width:45%; 
+    word-break:break-all;      
+    color: red;
   }
-  .search_header_close{
-      background-color: #bbb; 
-      width: 100%; 
-      height: 10vh; 
-      margin-top: -10vh;  
-      padding-top: 10px;
-      position: absolute;
-      z-index: 1000;
-      overflow: all;
-      transition: 0.3s linear;
-  }
-  .search_header_open{
-      background-color: #bbb; 
-      width: 100%; 
-      height: 10vh; 
-      margin-top: 0vh;  
-      padding-top: 10px;
-      position: absolute;
-      transition: 0.3s linear;
-      z-index: 1000;
-  }
-  
-  
-  .search_close_btn {
-      background-color: #aaa; 
-      font-weight: bold; 
-      color: #f55f11;
-      border-radius: 50%;
-  }
-  
-  .search_close_btn:hover {
-      border-radius: 50%;
-      background-color: #f55f11;
-      color: #aaa;
-  }
-  
-  
   
   /*Scrol top*/
   .btn-top{
       display: none;
       position: fixed;
-      bottom: 30px;
-      right: 100px;
+      bottom: 100px;
+      right: 35px;
       z-index: 99;
       border: 2px solid #eeeeee;
       color: #eeeeee;
@@ -205,16 +169,16 @@
   }
   
   .owl-prev {
-      left: 7px;
+      left: 0px;
   }
   
   .owl-next {
-      right: 7px;
+      right: 0px;
   }
   button:focus, button:active {
      outline: none;
   }
-  
+
   
   #main_container{
       background-image: url("../img/bg/blackbg.png");
@@ -243,12 +207,6 @@
   .checkout_prew_bnt, .checkout_next_bnt ,.messageform_prew_btn,.messageform_next_btn{
          border: 2px solid orange;
   }
-  
-  
-  
-  
-  
-  
   
   
   /* home tools carusel  section */
@@ -309,14 +267,28 @@
       background-color: #ffffff;
       color: #ffffff;
   }
-  #tools_container .card-footer{
-          background-color: #f05f11;
-          text-align: center;
-  }
   #tools_section img{
       margin: 10px auto;
   }
   
+  .accordion_product_title{
+    color: #f55f11;
+  }
+  .vibration-item a{
+      color:#000000;
+  }
+.vibration-item a:hover{    
+    text-decoration: none;
+    color:#000000;
+    cursor: pointer;
+
+}
+.accordion_product_title:hover{
+    text-decoration: none;
+    color: #f55f11; 
+    cursor: pointer;  
+}
+
   
   .tools_col_title, .solvedproblems_col_title{
       border-top: 2px solid #f05f11;
@@ -355,13 +327,6 @@
   .usefull-article-container a{
       color: #000;
       }                                                   
-  
-  
-  
-  
-  
-  
-  
   
   
                                            /* usefull articles section*/
@@ -413,16 +378,6 @@
   
   
   
-  .searchModalDialog{
-  width: 600px; 
-  margin-top: 300px
-  }
-  
-  
-  
-  
-  
-  
   /* my profil styles */
   #myprofil_section {
       min-height: 72vh;
@@ -445,39 +400,38 @@
 
 
 
+.searchModalDialog{
+    min-width: 40%;
+    height: 50vh;
+    margin: 250px auto; 
+}
+.searchModalResultDialog{
+    min-width: 45%;
+    height: 50vh;
+    margin: 250px auto; 
+}
 
 
 
 
 
+.acsesuaryCartSale{
+    margin-left: -115px; 
+    margin-top:-42px; 
+    transform: rotate(17deg); 
+    z-index:1;
+}
+.acsesuaryCartSoldout{
+    transform: rotate(-45deg); 
+    z-index:1; 
+    margin-top: 30px;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.chechoutBtns{
+    justify-content:space-between;
+}
 
 
     
@@ -557,401 +511,93 @@ footer h5{
 
 
 .navbar-nav ul li a{
-    font-size: 35px;
-}
-
-
-
-@media (min-width:992px){
-    header, header nav {
-        background-color: #f05f11;
-        font-size:35px;
-    }   
-.navbar-nav ul li a{
-    font-size: 35px;
-}
-
-.footer-logo{
-        margin-top:5px;
-    }
-#installation_section p{
-    font-size: 18px;
-    font-weight:bold;
-}
-#installation_section p a{
-    font-size: 16px;
-}
-}
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 575px){
-    *{
-        font-size: 25px;
-    }
-  #app{
-      font-size:30px;
-  }
-
-  .headerForm i{
-      font-size: 40px;
-  }
-  .footer-logo{
-      margin-top: 20px;
-  }
-  header .navbar{
-  margin: auto;
-  padding-left: 0rem;
-  padding-right: 0rem;
-  }
-  #cantact_section .row{
-  width:100%;
-  padding:10px;
-  }
-  
-  .footer-address span{
-      font-size: 40px;
-  }
-  #ustanovkaModalSectionContent{
-      margin:auto;
-      width: 700px;
-  }
-  #ustanovkaModalSectionContent iframe{
-      width: 550px;
-      height:500px;
-  }
-  
-#installation_section p{
-  font-size: 50px;
-  font-weight:bold;
-}
-
-#installation_section p a{
-  font-size: 40px;
-}
-
-.usefull-article-card {
-  font-size:35px;
-}
-
-#usefulllinkModal .card-footer{
-  font-size: 25px;
-}
-#usefulllinkModal span{
-  font-size: 20px;
-}
-.usefullModalFooter{
-  height: 400px;
-}
-
-.usefullarticleModalCloseBtn{
-  font-size: 55px;
-  color: #fff;
-}
-
-#usefulllinkModal .modal-dialog{
-  max-width: 600px;
-  max-height: 50vh;
-}
-
-.home-categories-section-img{
-  width: 100%;
-  margin: auto;
-  height: 500px;
-
-}
-  .home-news-section{
-      height: 400px;
-  }
-  .home-body-img{
-      height: 350px;
-  }
-  
-.header-icons-form span i{
-  font-size:40px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-.header-icons-form span img{
-  width:  50px;
-  height: 50px;
-  margin-left: 20px;
-}
-
-#home-categories-section-title{
-  font-size: 25px;
-}
-
-.usefull-card-img{
-  width: 100%;
-  height: 300px;
-}
-
-.tools_card{
-  font-size: 20px;
-  font-weight: bold;
-}
-#tools_container p{
-  font-size: 30px;
-}
-.vibration_absorption_ul{
-    margin-top: 30px;
-    font-size: 40px;
-}
-.vibration_absorption_ul li{
-    font-size: 40px;    
-    margin-top: 10px;
-}
-
-}
-
-
-
-
-
-
-
-  @media (max-width: 992px) {
-    
-
-    header .nav-link{
-        color:red;
-        font-size:50px;
-    }
-
-    header .navbar-toggler{
-        font-size: 40px;
-        color:white;
-    }
-    header nav .navbar-brand img{
-        width: 200px;
-        height: 75px;
-    }
-    .span_search i, #cart-id i, #userDropdown {
-        font-size: 50px;
-        margin-top: 50px;
-        margin-right:30px;
-    }
-    .userImg{
-        width:  60px;
-        height: 60px;
-    }
-
-      .footer-logo{
-          margin-top: 40px;
-          
-          width: 250px; 
-          height: 120px;
-      }
-      #headerCarusel{
-          text-align: center;
-          align-items: center;
-          margin: 0px auto;
-      }
-  
-     .catalogLinkBlog{
-         font-size: 40px;
-         color: red;
-     }
-
-     .searchModalDialog{
-         width: 100%;
-         height: 50vh;
-         margin-top: 50vh;
-     }
-
-    .footer-address span{
-        font-size: 40px;
-    }
-    .social__icon span a i{
-    text-align: center;
-    padding-right: 2rem;
-    font-size: 50px;
-} 
-
-.footer_title{
-    padding-top:20px;
-}
-.footer_info{
-    text-align: center;
-    font-size: 22px;
-}
-.cantact_section_span{
-    padding-left: 10rem;
-    font-size: 50px;
-    font-weight: bold;
-}
-#cantact_section .row{
-    width:100%;
-    padding:10px;
-}
-
-#ustanovkaModalSectionContent{
-    margin:auto;
-    width: 700px;
-}
-
-#ustanovkaModalSectionContent iframe{
-    height: 600px;
-    width: 550px;
-
-}
-
-#installation_section p{
-    font-size: 50px;
-    font-weight:bold;
-}
-#installation_section p a{
-    font-size: 40px;
-}
-
-#usefulllinkModal{
-    width:100%;
-}
-#usefulllinkModal .card-footer{
     font-size: 25px;
 }
-#usefulllinkModal span{
-    font-size: 20px;
-}
 
-.usefullModalFooter{
-    height: 700px;
-    overflow-y: auto;
-    font-size: 20px;
-}
 
-.usefullarticleModalCloseBtn{
-    font-size: 100px;
+
+@media (max-width:576px){
+
+    .header-carusel{
+        height: 250px;
+        /* font-size: 12px; */
+    }
+    header .nav-link{
+        font-size: 25px;
+    }
+    header .nav-link{
+        font-size: 2em;
+    }
+    header .headerForm i{
+        font-size: 2em;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top:20px;
+    }
+    header .headerForm{
+        padding-bottom: 50px;
+    }
+    header .headerUserForm a{
+        font-size: 1.5em;
+        
+    }
+    header .catalogDropdownItems{
+        font-size: 1.5em;
+    }
+    header .headerUserForm{
+        margin-right: -20px;
+    }
+    .checkout_prew_bnt{
+        margin: auto;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .checkout_next_bnt{
+        margin: 20px auto;
+    }
+
     
-}
-
-#usefulllinkModal .modal-dialog{
-    max-width: 750px;
-    max-height: 50vh;
-}
-
-    
-.home-categories-section-img{
-    height: 500px;
-    width: 100%;
-    margin: auto;
-}
-
-.home-news-section{
-    height: 450px;
-}
-
-.home-body-img{
-    height: 350px;
-}
-
-
-.header-icons-form span i{
-    font-size: 60px;
-    margin-top: 40px;
-    
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.header-icons-form span img{
-    height: 80px;
-    width:  80px;
-    margin-top: -10px;
-    margin-left: 20px;
-}
-
-#home-categories-section-title{
-    font-size: 50px;
-    font-weight: bold;
-    color:#000000;
-}
-
-.usefull-article-card{
-    font-size: 30px;
-
-}
-.usefull-card-img{
-    width: 100%;
-    height: 300px;
-}
-
-.tools_card .card-text{
-    font-size: 30px;
-    font-weight: bold;
-}
-#tools_container p{
-    font-size: 30px;
-}
-
-
-.catalogImg{
-    width: 100%;
-    height: 400px;
-}
-.catalogProductName{
-    font-size: 50px;
-    font-weight: bold;
-}
-.catologProductItems{
-    font-size: 35px;
-    font-family: 'Roboto';
-    font-weight: 500;
-}
-.catalogDropdownItems{
-    font-size: 35px;
-    font-family: 'Roboto';
-    font-weight: 500;
-}
 .searchModalDialog{
-    width: 800px; 
-    margin-top: 300px; 
+    width: 90%;
+    height: 50vh;
+    margin: 50px auto; 
+}
+.searchModalResultDialog{
+    width: 90%;
+    height: 50vh;
+    margin: 40px auto; 
 }
 
-.loginForm{
-    width: 100%;
-    margin-top: 200px;
-    padding-top: 100px;
+.acsesuaryCartSale{
+    margin-left: -75px; 
+    margin-top:-42px; 
+    transform: rotate(17deg); 
+    z-index:1;
 }
-
-.headerUserForm .dropdown-item{
-    font-size: 40px;
-    color:#000000;
-    min-width: 400px;
-    margin: auto;
-    /* background-color:red; */
-}
-.headerForm{
-    height: 100vh;
-}
-
-.vibration_absorption_ul{
+/* .acsesuaryCartSoldout{
+    transform: rotate(-45deg); 
+    z-index:1; 
     margin-top: 30px;
- 
-}
-.vibration_absorption_ul li{
-    font-size: 40px;    
- 
+} */
+
+
 }
 
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width:992px){
+    header, header nav {
+        background-color: #f05f11;        
+    }
+    
+    header .nav-link{
+        font-size: 2em;
+    }
+    header .headerForm i{
+        font-size: 2em;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    header .headerForm{
+        padding-bottom: 100px;
+    }   
+}
+    

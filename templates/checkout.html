@@ -71,14 +71,14 @@
 										</div>
 									</div>
 								</div>
-								<div class="mt-4 mb-2 form-inline" style="justify-content:space-between" >
+								<div class="mb-2 form-inline text-center justify-content-between">
 									{% if previous_path %}
-										<a href="{{ previous_path }}" class="btn checkout_prew_bnt ml-2">Назад</a>
+										<a href="{{ previous_path }}" class="btn checkout_prew_bnt">Назад</a>
 									{% else %}
-										<a href="{% url 'Core:home-view' %}" class="btn checkout_prew_bnt ml-2">Назад</a>
+										<a href="{% url 'Core:home-view' %}" class="btn checkout_prew_bnt">Назад</a>
 									{% endif %}
 									
-									<button type="submit" class="btn checkout_next_bnt" style="margin-left:13rem">Офармить заказ</button>
+									<button type="submit" class="btn checkout_next_bnt">Офармить заказ</button>
 								</div>
 							</form>
 						</div>
@@ -92,28 +92,23 @@
 					<!-- end JavaScript for get  user  -->
 
 					<div class="col-12 col-sm-12 col-md-12 col-lg-5 border pl-0 pr-0">
-						<ul class="list-unstyled mb-0 mt-0 pt-3 pl-3 pr-3" style="height: 26.7vh; width: 100%; overflow-y: scroll;">
+						<ul class="list-unstyled mb-0 mt-0 pt-3 pl-3 pr-3" style="height: 41vh; width: 100%; overflow-y: scroll;">
 							{% for item in items %}
-								<li class="row border-bottom pb-2 ">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-3">
-										<img src="{{ item.product.imageURL }}" width="70" height="70">
+								<li class="row border-bottom p-3">
+									<div class="col-12 col-sm-12 col-md-3 col-lg-3 pl-0">
+										<img src="{{ item.product.imageURL }}" width="100%" height="100">
 									</div>
-									<div class="col-12 col-sm-12 col-md-2 col-lg-5 pt-3 pl-0 pr-0">
+									<div class="col-12 col-sm-6 col-md-5 col-lg-5 pt-3 text-sm-center">
 										<h6>{{ item.product.name }}</h6>
+									
+										<small>{{ item.option_info }}</small>
 									</div>
-									<div class="col-12 col-sm-12 col-md-2 col-lg-2 pt-3 pl-0 pr-0">x{{ item.quantity }}</div>
-									<div class="col-12 col-sm-12 col-md-2 col-lg-2 pt-3 pl-0 pr-0">{{ item.get_total }}<br><small>{{ item.product.currency }}</small></div>
+									<div class="col-6 col-sm-3 col-md-2 col-lg-2 pt-3 text-md-center">x{{ item.quantity }}</div>
+									<div class="col-6 col-sm-3 col-md-2 col-lg-2 pt-3 text-md-center">{{ item.get_total }}<br><small>{{ item.product.currency }}</small></div>
 								</li>
 							{% endfor %}
 						</ul>
-							<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center font-weight-bold pt-3 pb-3">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-							</div>
-							<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center font-weight-bold pt-4 bg-light">
-								<h5>Быстрое общение</h5>
-								<h5>+998 97 704 00 16</h5>
-							</div>
+
 						
 
 					</div>

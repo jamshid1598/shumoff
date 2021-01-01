@@ -23,8 +23,8 @@
 
 		<div class="container pt-5 pb-5 mt-5" style="min-height: 82vh;"> 
 			<div class="row mt-5 pt-5">
-				<div class="co-12 col-sm-12 col-md-10 col-md-offset-1">
-					<table class="table table-hover">
+				<div class="co-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-md-offset-1">
+					<table class="table table-hover table-responsive">
 						<thead>
 							<tr>
 								<th>Продукт</th>
@@ -37,37 +37,53 @@
 						<tbody>
 							{% for item in items %}  
 								<tr>
-									<td class="col-md-6">
+									<td class="">
 										<div class="media">
 											<a class="thumbnail pull-left" href="{{ item.product.imageURL }}"> 
 												<img class="media-object" src="{{ item.product.imageURL }}" width="70" height="70"> 
 											</a>
 											<div class="media-body">
-												<h4 class="media-heading pt-3 pl-3">{{ item.product.name }}</h4>
+												<h4 class="media-heading pt-2 pl-3">{{ item.product.name }}</h4>
+
+												<small class="pl-3">({{ item.option_info }})</small>
 											</div>
 										</div>
 									</td>
-									<td class="col-md-1 text-center pt-4">
-										<strong>{{ item.product.price }} {{ item.product.currency }}</strong>
+									<td class=" text-center pt-4">
+										
+										{% if item.option_discount %}
+											<strong>{{ item.option_discount }} сум</strong>
+										{% else %}
+											<strong>{{ item.option_price }} сум</strong>
+										{% endif %}
+
 									</td>
-									<td class="col-md-1 text-center pt-4 ">
-										<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="remove" data-id="cart-page"><i class="fa fa-minus pr-1 text-dark"></i></a>
+									<td class=" text-center pt-4 ">
+										<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="remove" data-id="cart-page" data-optionpk="{{ item.option_pk }}">
+											<i class="fa fa-minus pr-1 text-dark"></i>
+										</a>
 										<span>{{ item.quantity }}</span>
 										{% if item.quantity < item.product.quantity %}
-											<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="add" data-id="cart-page"><i class="fa fa-plus pl-1 text-dark"></i></a>
+											<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="add" data-id="cart-page" data-optionpk="{{ item.option_pk }}">
+												<i class="fa fa-plus pl-1 text-dark"></i>
+											</a>
 										{% else %}
 										<a href="#!" ><i class="fa fa-plus pl-1 text-dark"></i></a>
 										{% endif %}	
+										<p id="ProductPriceHidden{{ item.product.pk }}" hidden>{{ item.option_pk }}</p>
 									</td>
-									<td class="col-md-1 text-center pt-4">
-										<strong>{{ item.get_total }}</strong>
+									<td class=" text-center pt-4">
+										<strong>{{ item.get_total }} сум</strong>
 									</td>
-									<td class="col-md-1 btn pt-4 text-danger" style="display: flex;" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="clear" data-id="cart-page">
+									<td class=" btn pt-4 text-danger" style="display: flex;" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="clear" data-id="cart-page" data-optionpk="{{ item.option_pk }}">
 										<span>
 											<i class="fa fa-close pr-1"></i>
 										</span>
 										Удалить
 									</td>
+
+
+									
 								</tr>
 							{% empty %}
 								<h4 margin="10">У вас нет заказанного товара ;)</h4>
@@ -91,7 +107,7 @@
 										{% if previous_path %}
 											<a href="{{ previous_path }}">Продолжить покупки</a>
 										{% else %}
-											<a href="{% url 'Core:home-view' %}">Продолжить покупки</a>
+											<a href="{% url 'Core:home-view' %}#CategoryList">Продолжить покупки</a>
 										{% endif %}
 											 
 										
@@ -102,9 +118,9 @@
 								<td>   </td>
 								<td>
 									{% if order.get_cart_items > 0 %}
-										<a href="{% url 'Core:checkout-detail-view' %}?next={{ request.path }}" class="btn btn-outline-success">Checkout</a>
+										<a href="{% url 'Core:checkout-detail-view' %}?next={{ request.path }}" class="btn btn-outline-success">Заказать </a>
 									{% else %}
-										<a href="{% url 'Core:checkout-detail-view' %}?next={{ request.path }}" class="btn btn-outline-success" onclick="return false;" >Checkout</a>
+										<a href="{% url 'Core:checkout-detail-view' %}?next={{ request.path }}" class="btn btn-outline-success" onclick="return false;" >Заказать </a>
 									{% endif %}
 								</td>
 							</tr>

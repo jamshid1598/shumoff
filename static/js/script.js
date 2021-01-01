@@ -2,7 +2,7 @@
 
 
 $('#recipeCarousel').carousel({
-  interval: 5000
+  interval: 1000
 });
 
 $('.carousel .carousel-item').each(function(){
@@ -43,7 +43,7 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
   $(document).ready(function(){
 
     $.fakeLoader({
-      timeToHide:2200,
+      timeToHide:1000,
       bgColor:"#ff780f",
       // spinner:"spinner1",
       //spinner:"spinner2",

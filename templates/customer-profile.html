@@ -71,41 +71,55 @@
 										<div class="card-footer border-0">
 										<div class="row  justify-content-around">
 												<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-														<p>shumoff.uz</p>
+														<p>shumoffcenter.uz</p>
 												</div>
 											</div>
 										</div>
 									</div>
 						
 					</div>
-					<div class="col-12 col-sm-12 col-md-12 col-lg-8 shadow-lg">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-8 shadow-lg ">
 						<div class="row">
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 border-bottom ">
-								<div class="row p-3 m-0">
-									<!-- <div class="col-2 col-sm-2 col-md-2 col-lg-2"></div> -->
-									<div class="col-5 col-sm-5 col-md-5 col-lg-5">Продукт</div>
-									<div class="col-2 col-sm-2 col-md-2 col-lg-3">Количество</div>
-									<div class="col-1 col-sm-1 col-md-1 col-lg-2">Всего</div>
-									<div class="col-2 col-sm-2 col-md-2 col-lg-2	">Положение</div>
+								<div class="row p-4">
+									<div class="col-3 col-sm-5 col-md-5 col-lg-5">Продукт</div>
+									<div class="col-4 col-sm-2 col-md-2 col-lg-3">Количество</div>
+									<div class="col-2 col-sm-1 col-md-1 col-lg-2">Всего</div>
+									<div class="col-3 col-sm-2 col-md-2 col-lg-2	">Положение</div>
 								</div>
 							</div>
-							<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="height: 46.5vh; width: 100%; position: relative; overflow-y: scroll;">
+							<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="height: 40vh; width: 100%; position: relative; overflow-y: scroll;">
 								{% for item in ordered_items %}
 									{% if item.product %}
-										<div class="row p-1 border-bottom">
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2">
-												<img class="media-object " src="{{ item.imageURL }}" width="90" height="90"> 
+										{% if not item.completed %}
+											<div class="row m-0 p-4 border-bottom">
+												<div class="col-3 col-sm-2 col-md-2 col-lg-2">
+													<img class="media-object " src="{{ item.imageURL }}" width="100%" height="90"> 
+												</div>
+												<div class="col-4 col-sm-5 col-md-5 col-lg-4 pt-2">{{ item.product|default_if_none:'Пока нет заказа.' }} <br> <small>({{ item.product_option|default_if_none:'неопределенный' }})</small></div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-2 text-left">x{{ item.product_amount }}</div>
+												<div class="col-2 col-sm-1 col-md-1 col-lg-2 pt-2 text-left">{{ item.get_total }} сум</div>
+												<div class="col-1 col-sm-2 col-md-2 col-lg-2 pt-2 text-right"><i class="fa fa-circle text-danger"></i></div>
 											</div>
-											<div class="col-5 col-sm-5 col-md-5 col-lg-4 pt-2">{{ item.product|default_if_none:'Пока нет заказа.' }}</div>
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-2 text-left">x{{ item.product_amount }}</div>
-											<div class="col-1 col-sm-1 col-md-1 col-lg-2 pt-2 text-left">{{ item.get_total }} сумма</div>
-											
-											{% if item.completed %}
-												<div class="col-1 col-sm-2 col-md-2 col-lg-2 pt-2 text-center"><i class="fa fa-circle text-success"></i></div>
-											{% else %}
-												<div class="col-1 col-sm-2 col-md-2 col-lg-2 pt-2 text-center"><i class="fa fa-circle text-danger"></i></div>
+										{% endif %}
+									{% endif %}
+								{% empty %}
+                            		<h4 style="padding-left: 10rem; padding-top: 10rem;">У вас нет заказанного товара ;)</h4>
+								{% endfor %}
+
+								{% for item in ordered_items %}
+									{% if item.product %}
+										{% if item.completed %}
+											<div class="row m-0 p-4 border-bottom">
+												<div class="col-3 col-sm-2 col-md-2 col-lg-2">
+													<img class="media-object " src="{{ item.imageURL }}" width="100%" height="90"> 
+												</div>
+												<div class="col-4 col-sm-5 col-md-5 col-lg-4 pt-2">{{ item.product|default_if_none:'Пока нет заказа.' }} <br> <small>({{ item.product_option|default_if_none:'неопределенный' }})</small></div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-2 text-left">x{{ item.product_amount }}</div>
+												<div class="col-2 col-sm-1 col-md-1 col-lg-2 pt-2 text-left">{{ item.get_total }} сум</div>
+												<div class="col-1 col-sm-2 col-md-2 col-lg-2 pt-2 text-right"><i class="fa fa-circle text-success"></i></div>
+											</div>
 											{% endif %}
-										</div>
 									{% endif %}
 								{% empty %}
                             		<h4 style="padding-left: 10rem; padding-top: 10rem;">У вас нет заказанного товара ;)</h4>
@@ -113,30 +127,30 @@
 							</div>
 													
 						</div>
-						<div class="row border-top">
+						<div class="row border-top p-2">
 							<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 								<div class="row border-bottom">
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12 border-bottom">
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12 border-bottom">
 										Новые заказы
 									</div>
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-										Всего: {{ customer_profile.get_ordered_total }}
-									</div>
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12">
 										Продукты: {{ customer_profile.get_ordered_items }}
+									</div>
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12">
+										Всего: {{ customer_profile.get_ordered_total }} сум
 									</div>
 								</div>
 							</div>
-							<div class="col-12 col-sm-12 col-md-6 col-lg-6 border-left">
-								<div class="row border-bottom">
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12 border-bottom">
+							<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+								<div class="row border-bottom ">
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12 border-bottom">
 										Приобретенные заказы
 									</div>
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-										Всего: {{ customer_profile.get_completed_total }}
-									</div>
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12">
 										Продукты: {{ customer_profile.get_completed_items }}
+									</div>
+									<div class="col-4 col-sm-12 col-md-12 col-lg-12">
+										Всего: {{ customer_profile.get_completed_total }} сум
 									</div>
 								</div>
 							</div>

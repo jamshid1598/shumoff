@@ -61,13 +61,14 @@ post_save.connect(post_save_user_receiver, sender=User)
 
 class OrderedItem(models.Model):
     customer = models.ForeignKey(Customer, on_delete = models.CASCADE, related_name="customer_orders", verbose_name = "Клиент: ")
-    product = models.CharField(max_length=300, blank=True, null=True, verbose_name="Продукт: ")
-    image = models.ImageField(upload_to="ordered-product/%Y/%m/%d/", blank=True, null=True, verbose_name='Образ:')
+    product  = models.CharField(max_length=300, blank=True, null=True, verbose_name="Продукт: ")
+    product_option = models.CharField(max_length=100, null=True, blank=True, verbose_name="Вариант продукта")
+    image    = models.ImageField(upload_to="ordered-product/%Y/%m/%d/", blank=True, null=True, verbose_name='Образ:')
     product_amount = models.IntegerField(default=0, verbose_name="Количество товара: ")
-    single_price = models.FloatField(default=0, verbose_name="Цена продукта: ")
-    total_price = models.FloatField(default=0, verbose_name="Итоговая цена: ")
-    date_ordered = models.DateTimeField(auto_now_add=True, verbose_name = "Дата заказа: ")
-    completed = models.BooleanField(default=False, verbose_name="Завершено: ")
+    single_price   = models.FloatField(default=0, verbose_name="Цена продукта: ")
+    total_price    = models.FloatField(default=0, verbose_name="Итоговая цена: ")
+    date_ordered   = models.DateTimeField(auto_now_add=True, verbose_name = "Дата заказа: ")
+    completed      = models.BooleanField(default=False, verbose_name="Завершено: ")
 
     def __str__(self):
         return str(self.customer) + " | " + str(self.completed)
@@ -101,8 +102,8 @@ post_save.connect(post_save_customer_receiver, sender=Customer)
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True) # Customer returns user email
-    date_ordered = models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа: ')
     complete = models.BooleanField(default=False, verbose_name='Завершено: ')
+    date_ordered = models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа: ')
     transaction_id = models.CharField(max_length=100, null=True, verbose_name='номер транзакции: ')
 
     class Meta:
@@ -112,14 +113,7 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
         
-    @property
-    def shipping(self):
-        shipping = False
-        orderitems = self.orderitem_set.all()
-        for i in orderitems:
-            if i.product.digital == False:
-                shipping = True
-        return shipping
+ 
 
     @property
     def get_cart_total(self):
@@ -135,30 +129,49 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, related_name="ordered_product", null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=0, null=True, blank=True, verbose_name="Количество: ")
+    order   = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    option_price    = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    option_discount = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    option_info     = models.CharField(max_length=100, blank=True, null=True, verbose_name="Вариант продукта")
+    quantity   = models.IntegerField(default=0, null=True, blank=True, verbose_name="Количество: ")
+    option_pk  = models.CharField(max_length=5, blank=True, null=True, verbose_name="вариант pk")
     date_added = models.DateTimeField(auto_now_add=True, verbose_name="Дата заказа: ")
 
     class Meta:
         verbose_name="Позиция заказа"
         verbose_name_plural="Позиция заказа"
 
+    # @property
+    # def get_total(self):
+    #     price = 0
+    #     if self.product.discount:
+    #         price = self.product.discount
+    #     else:
+    #         price = self.product.price
+    #     total = price * self.quantity
+    #     return total
+
     @property
     def get_total(self):
-        total = self.product.price * self.quantity
+        price = 0
+        if self.option_discount:
+            price = self.option_discount
+        else:
+            price = self.option_price
+        total = price * self.quantity
         return total
 
-class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    address = models.CharField(max_length=200, null=False)
-    city = models.CharField(max_length=200, null=False)
-    # state = models.CharField(max_length=200, null=False)
-    # zipcode = models.CharField(max_length=200, null=False)
-    date_added = models.DateTimeField(auto_now_add=True)
+# class ShippingAddress(models.Model):
+#     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+#     address = models.CharField(max_length=200, null=False)
+#     city = models.CharField(max_length=200, null=False)
+#     # state = models.CharField(max_length=200, null=False)
+#     # zipcode = models.CharField(max_length=200, null=False)
+#     date_added = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.address
+#     def __str__(self):
+#         return self.address
 
 
 class ArticleModel(models.Model):
@@ -166,7 +179,7 @@ class ArticleModel(models.Model):
     # caption      = models.CharField(max_length=300, blank=True, null=True, verbose_name='заголовок:')
 
     title        = models.CharField(max_length=350, unique=True, verbose_name='заглавие:')
-    slug         = models.SlugField(max_length=400)
+    slug         = models.SlugField(unique=True, max_length=400)
     description  = models.TextField(verbose_name='Описание:')
     author       = models.CharField(max_length=50, default='ShumOff', verbose_name = 'Автор:')
     view_counter = models.PositiveIntegerField(default=0)

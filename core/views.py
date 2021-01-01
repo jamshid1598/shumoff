@@ -7,6 +7,7 @@ from django.template import defaultfilters
 from django.conf import settings
 from django.db.models import F
 from django.core.mail import send_mail
+from django.contrib import messages
 from django.conf import settings
 from datetime import datetime
 from django.db.models import Case, Value, When
@@ -21,7 +22,7 @@ from cart.models import (
 	Customer,
 	Order,
 	OrderItem,
-	ShippingAddress,
+	# ShippingAddress,
 	OrderedItem,
 
 	ArticleModel, 
@@ -34,42 +35,107 @@ from main.models import (
 from cart.forms import CustomerForm
 from .models import (
 	Category, 
-	Product, 
+	Product,
+	ProductType,
 	Images, 
 )
+
+
 
 def cart_detail_view(request):
 	data = json.loads(request.body)
 	productPk = data['productPk']
 	action = data['action']
 	pageId = data['pageId']
+	price_option_pk = data['price_option_pk']
+	order_quantity  = data["order_quantity"]
 	
 	# print('Action:', action)
 	# print('Product:', productPk)
 	# print('PageId:', pageId)
+	# print('price_option_pk ', type(price_option_pk))
 
 	customer = request.user.customer
-	print(customer)
+	# print(customer)
 	product = Product.objects.get(pk=productPk)
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
-	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-	done_action = {"added":False, "one_more":False, "already_added":False}
+	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, option_pk=price_option_pk)
+	done_action = {"added":False, "one_more":False, "already_added":False, "less_then":False, "available_quanity":0}
 
-	if action == 'add' and pageId == "product-page" and created == True and product.quantity > orderItem.quantity:
-		orderItem.quantity = (orderItem.quantity + 1)
-		done_action["added"] = True
-	
-	elif action == 'add' and pageId == "product-page" and created == False and product.quantity > orderItem.quantity:
-		done_action["already_added"] = True
+	# print(orderItem.order)
+	# print(orderItem.product)
+	# print(orderItem.option_pk)
 
-	elif action == 'add' and pageId == "cart-page" and created == False and product.quantity > orderItem.quantity:
-		orderItem.quantity = (orderItem.quantity + 1) 
-		done_action["one_more"] = True
+	product_type = None
+	if price_option_pk != 'original':
+		product_type = ProductType.objects.get(pk=price_option_pk)
 
-	elif action == 'remove':
-		orderItem.quantity = (orderItem.quantity - 1)
-	
+	if created == True and price_option_pk != 'original':
+		product_opt = product_type.product_option
+		if product_type.product_option == None:
+			product_opt = product.category.category_name
+
+		orderItem.option_price    = product_type.price
+		orderItem.option_discount = product_type.discount
+		orderItem.option_info     = product_opt
+
+		# if int(order_quantity) > product_type.quantity:
+		#   done_action["less_then"] = True
+		#   done_action["available_quanity"] = product_type.quantity
+
+		# if action == 'add' and pageId == "product-page"  and product_type.quantity > orderItem.quantity:
+		#   orderItem.quantity   = (orderItem.quantity + 1)
+		#   done_action["added"] = True
+
+		if action == 'add' and pageId == "product-page" and product_type.quantity >= int(order_quantity):
+			orderItem.quantity   = (orderItem.quantity + int(order_quantity))
+			done_action["added"] = True
+			
+		elif action == 'add' and pageId == "product-page" and product_type.quantity < int(order_quantity):
+			done_action["less_then"] = True
+			done_action["available_quanity"] = product_type.quantity
+
+	elif created == True and price_option_pk == 'original':
+		product_opt = product.product_option
+		if product.product_option == None:
+			product_opt = product.category.category_name
+
+		orderItem.option_price    = product.price
+		orderItem.option_discount = product.discount
+		orderItem.option_info     = product_opt
+
+		if action == 'add' and pageId == "product-page" and product.quantity >= int(order_quantity):
+			orderItem.quantity   = (orderItem.quantity + int(order_quantity))
+			done_action["added"] = True
+
+		elif action == 'add' and pageId == "product-page" and product.quantity < int(order_quantity):
+			done_action["less_then"] = True
+			done_action["available_quanity"] = product.quantity
+
+	if created == False and price_option_pk != "original":
+		if action == 'add' and pageId == "product-page": 
+			done_action["already_added"] = True
+
+		elif action == 'add' and pageId == "cart-page" and product_type.quantity > orderItem.quantity:
+			orderItem.quantity      = (orderItem.quantity + 1) 
+			done_action["one_more"] = True
+
+		elif action == 'remove' and pageId == "cart-page":
+			orderItem.quantity = (orderItem.quantity - 1)
+
+	elif created == False and price_option_pk == 'original':
+		if action == 'add' and pageId == "product-page": 
+			done_action["already_added"] = True
+
+		elif action == 'add' and pageId == "cart-page" and product.quantity > orderItem.quantity:
+			orderItem.quantity = (orderItem.quantity + 1)
+			done_action["added"] = True
+
+		elif action == 'remove' and pageId == "cart-page" :
+			orderItem.quantity = (orderItem.quantity - 1)
+
+
 	orderItem.save()
 
 	if action == 'clear':
@@ -79,6 +145,117 @@ def cart_detail_view(request):
 		orderItem.delete()
 
 	return JsonResponse(done_action, safe=False, status=200)
+
+
+# def cart_detail_view(request):
+# 	data = json.loads(request.body)
+# 	productPk = data['productPk']
+# 	action = data['action']
+# 	pageId = data['pageId']
+# 	price_option_pk = data['price_option_pk']
+
+	
+# 	# print('Action:', action)
+# 	# print('Product:', productPk)
+# 	# print('PageId:', pageId)
+# 	# print('price_option_pk ', type(price_option_pk))
+
+# 	customer = request.user.customer
+# 	# print(customer)
+# 	product = Product.objects.get(pk=productPk)
+# 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+# 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, option_pk=price_option_pk)
+# 	done_action = {"added":False, "one_more":False, "already_added":False}
+
+# 	# print(orderItem.order)
+# 	# print(orderItem.product)
+# 	# print(orderItem.option_pk)
+
+# 	product_type = None
+# 	if price_option_pk != 'original':
+# 		product_type = ProductType.objects.get(pk=price_option_pk)
+
+# 	if created and price_option_pk != 'original':
+# 		orderItem.option_price = product_type.price
+# 		orderItem.option_discount = product_type.discount
+# 		orderItem.option_info = product_type.product_option
+
+# 		if action == 'add' and pageId == "product-page"  and product_type.quantity > orderItem.quantity:
+# 			orderItem.quantity = (orderItem.quantity + 1)
+# 			done_action["added"] = True
+
+# 	elif created and price_option_pk == 'original':
+# 		orderItem.option_price = product.price
+# 		orderItem.option_discount = product.discount
+# 		orderItem.option_info = product.product_option
+
+# 		if action == 'add' and pageId == "product-page" and product.quantity > orderItem.quantity:
+# 			orderItem.quantity = (orderItem.quantity + 1)
+# 			done_action["added"] = True
+
+# 	if created == False and orderItem.option_pk != "original":
+# 		if action == 'add' and pageId == "product-page": 
+# 			done_action["already_added"] = True
+
+# 		elif action == 'add' and pageId == "cart-page" and product_type.quantity > orderItem.quantity:
+# 			orderItem.quantity = (orderItem.quantity + 1) 
+# 			done_action["one_more"] = True
+
+# 		elif action == 'remove' and pageId == "cart-page":
+# 				orderItem.quantity = (orderItem.quantity - 1)
+
+# 	elif created == False and price_option_pk == 'original':
+# 		if action == 'add' and pageId == "product-page": 
+# 			done_action["already_added"] = True
+# 		if action == 'add' and pageId == "cart-page" and product.quantity > orderItem.quantity:
+# 			orderItem.quantity = (orderItem.quantity + 1)
+# 			done_action["added"] = True
+# 		elif action == 'remove' and pageId == "cart-page" :
+# 			orderItem.quantity = (orderItem.quantity - 1)
+
+
+# 	orderItem.save()
+
+# 	if action == 'clear':
+# 		orderItem.delete()
+	
+# 	if orderItem.quantity <= 0:
+# 		orderItem.delete()
+
+# 	return JsonResponse(done_action, safe=False, status=200)
+
+
+
+class CartDetailView(View):
+	template_name = 'cart.html'
+	context={}
+	def get(self, request, *args, **kwargs):
+		previous_path = self.request.GET.get('next', '')
+		category_list = Category.objects.all()
+		if "category" not in  previous_path:
+			previous_path = None
+
+		if request.user.is_authenticated:
+			customer = self.request.user.customer
+			order, created = Order.objects.get_or_create(customer=customer, complete=False)
+			print("Order: ", order, '\n', "Created: ", created)
+			items = order.orderitem_set.all()
+		else:
+			items = []
+			order = {"get_cart_total": 0, "get_cart_items":0}
+		self.context={
+			"items":items,
+			"order":order,
+			"previous_path": previous_path,
+			"category_list":category_list,
+		}
+		return render(
+			request,
+			self.template_name,
+			self.context,
+		)
+
 
 
 class HomeView(View):
@@ -106,28 +283,6 @@ class HomeView(View):
 			self.context
 		)
 
-class SearchResultsView(ListView):
-	model = Product
-	template_name = 'home.html'
-
-	def get_queryset(self): # new
-		query = self.request.GET.get('q')
-		object_list = Product.objects.filter(
-			Q(name__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query) 
-		)
-		return object_list
-	
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		category_list = None
-		category_list = Category.objects.all()
-		
-		news_img = New.objects.all()
-		home_img = Home.objects.all()
-		context["news_imgs"] = news_img
-		context["home_imgs"] = home_img
-		context['category_list'] = category_list
-		return context
 
 # class CategoryDetailView(View):
 # 	template_name='catalog.html'
@@ -148,10 +303,10 @@ class CategoryDetailView(View):
 	template_name='catalog.html'
 	context={}
 
-	def get(self, request, pk=None, slug=None, *args, **kwargs):
+	def get(self, request, slug_category=None, slug=None, *args, **kwargs):
 		product=None
 		items = None
-		category = get_object_or_404(Category, pk=pk)
+		category = get_object_or_404(Category, slug=slug_category)
 		category_list = Category.objects.all()
 
 		if slug:
@@ -162,43 +317,14 @@ class CategoryDetailView(View):
 				product = item
 				break
 			
-		self.context['category'] = category
+		self.context['pk'] = category.pk
+		self.context["category"] = category
 		self.context['category_list'] = category_list
 		self.context["product"]=product
 		return render(
-		request,
-		self.template_name,
-		self.context
-		)
-
-
-
-
-class CartDetailView(View):
-	template_name = 'cart.html'
-	context={}
-	def get(self, request, *args, **kwargs):
-		# previous_path = self.request.GET.get('next', '')
-		category_list = Category.objects.all()
-		# print(previous_path)
-		if request.user.is_authenticated:
-			customer = self.request.user.customer
-			order, created = Order.objects.get_or_create(customer=customer, complete=False)
-			print("Order: ", order, '\n', "Created: ", created)
-			items = order.orderitem_set.all()
-		else:
-			items = []
-			order = {"get_cart_total": 0, "get_cart_items":0}
-		self.context={
-			"items":items,
-			"order":order,
-			# "previous_path": previous_path,
-			"category_list":category_list,
-		}
-		return render(
 			request,
 			self.template_name,
-			self.context,
+			self.context
 		)
 
 
@@ -240,6 +366,7 @@ class CheckoutDetailView(View):
 			self.template_name,
 			self.context,
 		)
+
 	def post(self, request, *args, **kwargs):
 		previous_path = self.request.POST.get('next', '')
 		category_list = Category.objects.all()
@@ -254,19 +381,26 @@ class CheckoutDetailView(View):
 			ordered_date = datetime.now()
 
 			for item in items:
-				ordered_product_list += f"Продукт: {item.product.name} - {item.product.price} {item.product.currency} - x{item.quantity} - {item.get_total} {item.product.currency}\n"
-			ordered_product_list += f"\n\nПродукты: {order.get_cart_items}\nВсего:    {order.get_cart_total} сумма\n\nДата заказа: {ordered_date.strftime('%d/%m/%Y')}"
+				ordered_product_list += f"Продукт: {item.product.name} - {item.option_price} сум - x{item.quantity} - {item.get_total} сум\n"
+			ordered_product_list += f"\n\nПродукты: {order.get_cart_items}\nВсего:    {order.get_cart_total} сум\n\nДата заказа: {ordered_date.strftime('%d/%m/%Y')}"
 			# end email body format
 
 
 			#  ('customer', 'product', 'product_amount', 'single_price', 'total_price', 'date_ordered', 'completed', )
 			for item in items:
+				single_price = 0
+				if item.option_discount:
+					single_price = item.option_discount
+				else:
+					single_price = item.option_price
+
 				ordered_item = OrderedItem.objects.create(
 					customer=customer, 
 					product=item.product.name,
+					product_option=item.option_info,
 					image = File(item.product.image),
 					product_amount=item.quantity,
-					single_price=item.product.price,
+					single_price=single_price,
 					total_price = item.get_total,
 				)
 				Product.objects.filter(slug = item.product.slug).update(quantity = F('quantity')-item.quantity)
@@ -299,7 +433,7 @@ class CheckoutDetailView(View):
 					return redirect('Core:customer-profile-view')
 		else:
 			items = []
-			order = {"get_cart_total": 0, "get_cart_items":0}
+			order = {"get_cart_total": 0, "get_cart_items": 0}
 		self.context={
 			"items":items,
 			"order":order,
@@ -432,7 +566,7 @@ class AdminControlPanel(View):
 		for customer in customers_list:
 			exist = False
 			for product in customer.customer_orders.all():
-				if product and product.completed == False:
+				if product.product and product.completed == False:
 					exist = True
 					break
 			if exist == True:
@@ -515,4 +649,52 @@ def accessory_tool_detail_view(request, *args, **kwargs):
 
 
 
+def search_query(request, *args, **kwargs):
+	query = ''
+	
+	data = json.loads(request.body)
+	query = data['query']
 
+	object_list = None
+	if len(query) > 0:
+			object_list = Product.objects.filter(
+				Q(name__contains=query) | Q(slug__contains=query) | Q(description__contains=query) 
+			)
+	if object_list.count() > 0:
+		try:
+			object_list_json = serializers.serialize('json', object_list, cls=LazyEncoder, ensure_ascii=True)
+		except Exception as e:
+			print("Error occured: ", e)
+		return JsonResponse(object_list_json, safe=False, status=200)
+	else:
+		object_list_json = "нет продукта"
+		return JsonResponse(object_list_json, safe=False, status=200)
+	return Http404
+
+
+
+
+# class SearchResultsView(ListView):
+# 	model = Product
+# 	template_name = 'home.html'
+
+# 	def get_queryset(self): # new
+# 		query = self.request.GET.get('q')
+# 		object_list = None
+# 		if len(query) > 1:
+# 			object_list = Product.objects.filter(
+# 				Q(name__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query) 
+# 			)
+# 		return object_list
+	
+# 	def get_context_data(self, **kwargs):
+# 		context = super().get_context_data(**kwargs)
+# 		category_list = None
+# 		category_list = Category.objects.all()
+		
+# 		news_img = New.objects.all()
+# 		home_img = Home.objects.all()
+# 		context["news_imgs"] = news_img
+# 		context["home_imgs"] = home_img
+# 		context['category_list'] = category_list
+# 		return context

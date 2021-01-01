@@ -6,7 +6,7 @@ from .models import (
     Customer,
     Order,
     OrderItem,
-    ShippingAddress,
+    # ShippingAddress,
     OrderedItem,
 
     ArticleModel,
@@ -46,7 +46,7 @@ admin.site.register(ArticleModel, ArticleModelAdmin)
 admin.site.register(Customer)
 admin.site.register(Order)
 admin.site.register(OrderItem)
-admin.site.register(ShippingAddress)
+# admin.site.register(ShippingAddress)
 
 class OrderedItemAdmin(admin.ModelAdmin):
     #  ('customer', 'product', 'product_amount', 'single_price', 'total_price', 'date_ordered', 'completed', )

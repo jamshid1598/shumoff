@@ -11,16 +11,23 @@ from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
     category_name = models.CharField(max_length=200, unique=True, verbose_name='Категория:')
-    image = ImageField(upload_to="category/%Y/%m/%d/", verbose_name='Категория Образ:')
+    slug          = models.SlugField(max_length=200, unique=True)
+    image         = ImageField(upload_to="category/%Y/%m/%d/", verbose_name='Категория Образ:')
+    added_date    = models.DateTimeField(auto_now_add="True")
 
     primary   = models.BooleanField(default=True, verbose_name="Основная")
     tools     = models.BooleanField(default=False, verbose_name="инструменты")
     accessory = models.BooleanField(default=False, verbose_name="Аксессуар")
     
     class Meta:
-        ordering            = ['category_name']
+        ordering            = ['added_date']
         verbose_name        = 'Категория'
         verbose_name_plural = 'Категории'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.category_name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.category_name
@@ -34,27 +41,33 @@ class Category(models.Model):
         return url  
 
 class Product(models.Model):
-    image       = ImageField(upload_to="product/%Y/%m/%d/", verbose_name='Образ:')
-    caption     = models.CharField(max_length=300, blank=True, null=True, verbose_name='Заголовок:')
+    image       = ImageField(upload_to="product/%Y/%m/%d/", verbose_name='Образ')
+    caption     = models.CharField(max_length=300, blank=True, null=True, verbose_name='Заголовок')
 
-    name        = models.CharField(max_length=300, verbose_name='название:')
-    slug        = models.SlugField(max_length=320)
+    name        = models.CharField(max_length=300, verbose_name='Hазвание')
+    slug        = models.SlugField(max_length=320, unique=True)
 
-    description = models.TextField(verbose_name='Описание:')
-    quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество:')
+    short_description = models.TextField(null=True, verbose_name='Краткое описание')
+    description = models.TextField(verbose_name='Описание')
+    # quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
-    class CurrecyChoice(models.TextChoices):
-        SUM="сумма",_('сум')
-        USD='$',_('доллар')
-        RUB='ruble',_('рубль')
-        __empty__=_('')
+    # class CurrecyChoice(models.TextChoices):
+    #     SUM="сум",_('сум')
+    #     USD='$',_('доллар')
+    #     RUB='₽',_('рубль')
+    #     __empty__=_('')
 
-    currency     = models.CharField( verbose_name='Тип валюты:', max_length=5, choices=CurrecyChoice.choices, default=CurrecyChoice.SUM,)
-    price        = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
-    discount     = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    # currency    = models.CharField( verbose_name='Тип валюты:', max_length=5, choices=CurrecyChoice.choices, default=CurrecyChoice.SUM,)
+    price       = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    discount    = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    # price       = models.CharField(max_length=300, verbose_name="Цена")
+    # discount    = models.CharField(max_length=300, blank=True, null=True, verbose_name="Скидка Цена")
+    price_info  = models.CharField(max_length=300, blank=True, null=True, verbose_name="О цене")
+    product_option = models.CharField(max_length=300, blank=True, null=True, verbose_name="Вариант продукта")
+    quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
     category     = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category', verbose_name='Категория:')
-    digital      = models.BooleanField(default=False,null=True, blank=True)
+    # digital      = models.BooleanField(default=False,null=True, blank=True)
 
     published_at = models.DateTimeField(auto_now_add=True)
     updated_at   = models.DateTimeField(auto_now=True)
@@ -80,6 +93,7 @@ class Product(models.Model):
             return self.published_at
         else:
             self.updated_at
+
     @property
     def imageURL(self):
         try:
@@ -89,16 +103,31 @@ class Product(models.Model):
         return url
 
 
-class Images(models.Model):
-    model   = models.ForeignKey(Product,  on_delete=models.CASCADE, related_name="product_images",)
-    images  = ImageField(upload_to='product-images/%Y/%m/%d/')
-    caption = models.CharField(max_length=300, blank=True, null=True, verbose_name='Заголовок:')
-    
-    class Meta:
-        verbose_name_plural = "Изображений: "
+class ProductType(models.Model):
+    product  = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_price_option", verbose_name="Продукт")
+    # price       = models.CharField(max_length=300, verbose_name="Цена")
+    # discount    = models.CharField(max_length=300, blank=True, null=True, verbose_name="Скидка Цена")
+    price       = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    discount    = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    price_info  = models.CharField(max_length=300, blank=True, null=True, verbose_name="О цене")
+    product_option = models.CharField(max_length=300, blank=True, null=True, verbose_name="Вариант продукта")
+    quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
     def __str__(self):
-        return self.model.name
+        return self.product.name
+    class Meta:
+        verbose_name_plural = "Тип продукта"
+
+class Images(models.Model):
+    product = models.ForeignKey(Product,  on_delete=models.CASCADE, related_name="product_images", verbose_name="Продукт")
+    image   = ImageField(upload_to='product-images/%Y/%m/%d/', verbose_name="Образ")
+    caption = models.CharField(max_length=300, blank=True, null=True, verbose_name='Заголовок')
+    
+    class Meta:
+        verbose_name_plural = "Изображений"
+
+    def __str__(self):
+        return self.product.name
 
     @property
     def imageURL(self):
@@ -107,3 +136,5 @@ class Images(models.Model):
         except:
             url = ''
         return url   
+
+

@@ -40,20 +40,10 @@
 					<div class="card mb-0">						
 						
 						{% for category in category_list %}
-							{% if pk == category.pk %}
-								{% if category.primary %}
-									<div class="card-header collapsed" data-toggle="collapse" aria-expanded="true" href="#collapse{{ forloop.counter }}">
-										<a href="{% url 'Core:category-detail-view' category.slug %}" class="card-title accordion_product_title">{{ category.category_name }}</a>
-									</div>
-								{% elif category.tools %}
-									<div class="card-header collapsed" data-toggle="collapse" aria-expanded="true" href="#collapse{{ forloop.counter }}">
-										<a href="{% url 'Core:install-view' %}#tools_container" class="card-title accordion_product_title">{{ category.category_name }}</a>
-									</div>
-								{% elif category.accessory %}
-									<div class="card-header collapsed" data-toggle="collapse" aria-expanded="true" href="#collapse{{ forloop.counter }}">
-										<a href="{% url 'Core:home-view' %}#recipeCarouselaccessory" class="card-title accordion_product_title">{{ category.category_name }}</a>
-									</div>
-								{% endif %}
+							{% if pk == category.pk and category.primary %}
+								<div class="card-header collapsed" data-toggle="collapse" aria-expanded="true" href="#collapse{{ forloop.counter }}">
+									<a href="{% url 'Core:category-detail-view' category.slug %}" class="card-title accordion_product_title">{{ category.category_name }}</a>
+								</div>
 								<div id="collapse{{ forloop.counter }}" class="card-body collapse show " data-parent="#accordion" >
 									<ul class="list-unstyled mb-0 mt-0 ">																							
 										{% for product in category.product_category.all %}
@@ -67,7 +57,7 @@
 										{% endfor %}
 									</ul>
 								</div>
-							{% else %}
+							{% elif category.primary %}
 								<div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" href="#collapse{{ forloop.counter }}">
 									<a href="{% url 'Core:category-detail-view' category.slug %}" class="card-title accordion_product_title">{{ category.category_name }}</a>
 								</div>
@@ -76,6 +66,40 @@
 										{% for product in category.product_category.all %}
 											<li class="p-2 border vibration-item" >
 												<a href="{% url 'Core:category-detail-view' category.slug product.slug %}"  class="catologProductItems" >
+													{{ product.name }}
+												</a>
+											</li>
+										{% empty %}
+											<h6 class="text-center " style="color: coral; padding-top:3vh; ">Нет продуктов, которых можно избежать ;)</h6>
+										{% endfor %}
+									</ul>
+								</div>
+							{% elif category.tools %}
+								<div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" href="#collapse{{ forloop.counter }}">
+									<a href="{% url 'Core:install-view' %}#tools_container" class="card-title accordion_product_title">{{ category.category_name }}</a>
+								</div>
+								<div id="collapse{{ forloop.counter }}" class="card-body collapse" data-parent="#accordion" >
+									<ul class="list-unstyled mb-0 mt-0 ">																							
+										{% for product in category.product_category.all %}
+											<li class="p-2 border vibration-item" >
+												<a href="{% url 'Core:install-view' %}#tools_container"  class="catologProductItems" >
+													{{ product.name }}
+												</a>
+											</li>
+										{% empty %}
+											<h6 class="text-center " style="color: coral; padding-top:3vh; ">Нет продуктов, которых можно избежать ;)</h6>
+										{% endfor %}
+									</ul>
+								</div>
+							{% elif category.accessory %}
+								<div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" href="#collapse{{ forloop.counter }}">
+									<a href="{% url 'Core:home-view' %}#recipeCarouselaccessory" class="card-title accordion_product_title">{{ category.category_name }}</a>
+								</div>
+								<div id="collapse{{ forloop.counter }}" class="card-body collapse" data-parent="#accordion" >
+									<ul class="list-unstyled mb-0 mt-0 ">																							
+										{% for product in category.product_category.all %}
+											<li class="p-2 border vibration-item" >
+												<a href="{% url 'Core:home-view' %}#recipeCarouselaccessory"  class="catologProductItems" >
 													{{ product.name }}
 												</a>
 											</li>
@@ -110,7 +134,7 @@
 										{% endthumbnail %}
 									{% endthumbnail %}
 								{% elif product.discount %}
-									<img src="{% static 'img/products/aksiaya.svg'%}" width="300" height="250" class="card-img-overlay" style="margin-left: -3.5rem; margin-top:-2.3rem; transform: rotate(18deg); z-index:1;">
+									<img src="{% static 'img/products/акции.png'%}" width="200" height="200" class="card-img-overlay" style=" margin: 10px auto; z-index:1;">
 									{% thumbnail product.image "1000" as big %}
 										{% thumbnail product.image "500" crop="center" as small %}
 											<a href="{{ big.url }}"  data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">

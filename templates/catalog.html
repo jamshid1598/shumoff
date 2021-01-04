@@ -153,7 +153,7 @@
 
 								<div class="row pt-2">
 
-									{% if product.product_images.all|length == 3 %}
+									{% if product.product_images.all %}
 										{% for image in product.product_images.all %}
 											<div class="col-4 col-sm-4 col-md-4 col-lg-4 pr-1">
 												{% thumbnail image.image "1000" as big %}
@@ -165,61 +165,6 @@
 												{% endthumbnail %}									
 											</div>
 										{% endfor %}
-									{% elif product.product_images.all|length == 2 %}
-										{% for image in product.product_images.all %}
-											<div class="col-4 col-sm-4 col-md-4 col-lg-4 pr-1">
-												{% thumbnail image.image "1000" as big %}
-													{% thumbnail image.image "150" crop="center" as small %}
-														<a href="{{ big.url }}" data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
-															<img src="{{ small.url }}" width="100%" height="75">
-														</a>	
-													{% endthumbnail %}
-												{% endthumbnail %}									
-											</div>
-										{% endfor %}
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}"  data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
-									{% elif product.product_images.all|length == 1 %}
-										{% for image in product.product_images.all %}
-											<div class="col-4 col-sm-4 col-md-4 col-lg-4 pr-1">
-												{% thumbnail image.image "1000" as big %}
-													{% thumbnail image.image "150" crop="center" as small %}
-														<a href="{{ big.url }}" data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
-															<img src="{{ small.url }}" width="100%" height="75">
-														</a>	
-													{% endthumbnail %}
-												{% endthumbnail %}									
-											</div>
-										{% endfor %}
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
-									{% else %}
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
-										<div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
-											<a href="{% static 'img/products/placeholder-image-product.jpg' %}" data-fancybox="false" data-caption="Shum Off Center">
-												<img src="{% static 'img/products/placeholder-image-product.jpg' %}" width="100%" height="75">
-											</a>
-										</div>
 									{% endif %}
 								</div>
 							</div>

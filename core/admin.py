@@ -51,7 +51,7 @@ class ProductAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('name', 'published_at', 'updated_at', )
     search_fields      = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
     ordering           = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
-    list_editable      = ('price', 'discount',   'category', )
+    list_editable      = ('price', 'discount',   'category', "quantity", )
 
 
     prepopulated_fields = {'slug': ('name', )}

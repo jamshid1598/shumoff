@@ -54,7 +54,45 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
       spinner:"spinner7",
       // imagePath:"../img/logo.png",
     });
+
+
+
+
   });
+    
+
+  $('.add-quantity-btn').click(function(){
+
+    var productQuantityIpt = document.querySelector(".quantity-input");
+    var productQuantityInput = document.querySelector(".quantity-input").value;
+    var productQuantity = parseInt(productQuantityInput, 10); 
+    
+    productQuantity++;
+  
+    productQuantityIpt.value = productQuantity;
+    
+    });
+  
+
+
+
+
+
+$('.remove-quantity-btn').click(function(){
+  var productQuantityIpt = document.querySelector(".quantity-input");
+  var productQuantityInput = document.querySelector(".quantity-input").value;
+  var productQuantity = parseInt(productQuantityInput, 10); 
+  
+  productQuantity--;
+   
+  if (productQuantity <= 0) {
+    return;
+  }
+  
+  productQuantityIpt.value = productQuantity;
+
+
+});
 
 
   // Crol to top
@@ -73,4 +111,5 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
   });
 
 
-
+  
+ 

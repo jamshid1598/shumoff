@@ -325,6 +325,7 @@ class CategoryDetailView(View):
 		if slug:
 			product = Product.objects.get(category=category, slug=slug)
 			product_quantity = product_quantity + product.quantity
+			print(product_quantity, "\n", product.quantity)
 			if product.product_price_option.all():
 				n=0
 				n = sum([p.quantity for p in product.product_price_option.all()])

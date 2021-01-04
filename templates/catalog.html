@@ -123,7 +123,6 @@
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 border p-3 shadow-lg">
 						<div class="row imglist">
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center">
-
 								{% if product_quantity == 0 %}
 									<img src="{% static 'img/products/sold_out.png'%}" width="200" height="150" class="card-img-overlay" style=" z-index:1; margin-top: 0rem;">
 									{% thumbnail product.image "1000" as big %}
@@ -235,9 +234,9 @@
 								<span id="ProductPriceHidden" hidden>original</span>
 								
 								<div class="input-group mb-1 w-75 m-auto">
-									<a class="text-decoration-none input-group-text" href="#!">-</a></span>
-									<input type="number" id="OrderQuantity" class="form-control" placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
-									<a class="text-decoration-none input-group-text" href="#!">+</a></span>
+									<a class="text-decoration-none input-group-text remove-quantity-btn" href="#!">-</a></span>
+									<input type="number" id="OrderQuantity" class="form-control quantity-input" placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
+									<a class="text-decoration-none input-group-text add-quantity-btn" href="#!">+</a></span>
 								</div>
 
 								
@@ -500,6 +499,14 @@
 		<script src="{% static 'js/script.js' %}"></script>
 		<script>
 		new WOW().init();
+
+
+
+
+
+
+
+
 		</script>
 	{% endblock js %}
 		

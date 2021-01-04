@@ -188,7 +188,7 @@
 												<img src="${sold_out_img}" width="300" height="150" class="card-img-overlay" style="transform: rotate(-35deg); z-index:1; margin-top: 70px; margin-left:70px;">
 												<img src="${image_url}" width="100%" height="250">
 												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["currency"]||""}</h6>
+												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
 											</div>
 										`
 									)
@@ -206,7 +206,7 @@
 												<img src="${discount_img}" width="100%" height="200" class="card-img-overlay" style="margin-left: -192px; margin-top:-42px; transform: rotate(17deg); z-index:1;">
 												<img src="${image_url}" width="100%" height="250">
 												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["currency"]||""}</h6>
+												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
 											</div>
 										`
 									)
@@ -223,7 +223,7 @@
 											<div class="modal-body">
 												<img src="${image_url}" width="100%" height="250">
 												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["currency"]||""}</h6>
+												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
 											</div>
 										`
 									)

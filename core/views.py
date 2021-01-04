@@ -58,6 +58,16 @@ def cart_detail_view(request):
 	customer = request.user.customer
 	# print(customer)
 	product = Product.objects.get(pk=productPk)
+
+	# calculate all related product quantities
+	# product_quantity = 0
+	# product_quantity = product_quantity + product.quantity
+	# if product.product_price_option.all():
+	# 			n=0
+	# 			n = sum([p.quantity for p in product.product_price_option.all()])
+	# 			product_quantity = product_quantity + n
+	# calculate all related product quantities
+
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, option_pk=price_option_pk)
@@ -306,21 +316,35 @@ class CategoryDetailView(View):
 	def get(self, request, slug_category=None, slug=None, *args, **kwargs):
 		product=None
 		items = None
-		category = get_object_or_404(Category, slug=slug_category)
+		product_quantity = 0
+
+		if slug_category:
+			category = get_object_or_404(Category, slug=slug_category)
 		category_list = Category.objects.all()
 
 		if slug:
 			product = Product.objects.get(category=category, slug=slug)
+			product_quantity = product_quantity + product.quantity
+			if product.product_price_option.all():
+				n=0
+				n = sum([p.quantity for p in product.product_price_option.all()])
+				product_quantity = product_quantity + n
 		else:
 			items = category.product_category.all()
 			for item in items:
 				product = item
+				product_quantity = product_quantity + product.quantity
+				if product.product_price_option.all():
+					n=0
+					n = sum([p.quantity for p in product.product_price_option.all()])
+					product_quantity = product_quantity + n
 				break
 			
 		self.context['pk'] = category.pk
 		self.context["category"] = category
 		self.context['category_list'] = category_list
 		self.context["product"]=product
+		self.context["product_quantity"]=product_quantity
 		return render(
 			request,
 			self.template_name,

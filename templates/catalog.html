@@ -100,8 +100,8 @@
 						<div class="row imglist">
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center">
 
-								{% if product.quantity == 0 %}
-									<!-- <img src="{% static 'img/products/sold-out.png'%}" width="100%" height="300" class="card-img-overlay" style="transform: rotate(45deg); z-index:1; margin-top: 14rem;"> -->
+								{% if product_quantity == 0 %}
+									<img src="{% static 'img/products/sold_out.png'%}" width="200" height="150" class="card-img-overlay" style=" z-index:1; margin-top: 0rem;">
 									{% thumbnail product.image "1000" as big %}
 										{% thumbnail product.image "500" crop="center" as small %}
 											<a href="{{ big.url }}"  data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">

@@ -47,7 +47,7 @@ class Product(models.Model):
     name        = models.CharField(max_length=300, verbose_name='Hазвание')
     slug        = models.SlugField(max_length=320, unique=True)
 
-    short_description = models.TextField(null=True, verbose_name='Краткое описание')
+    short_description = models.TextField(blank=True, null=True, verbose_name='Краткое описание')
     description = models.TextField(verbose_name='Описание')
     # quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
@@ -58,8 +58,8 @@ class Product(models.Model):
     #     __empty__=_('')
 
     # currency    = models.CharField( verbose_name='Тип валюты:', max_length=5, choices=CurrecyChoice.choices, default=CurrecyChoice.SUM,)
-    price       = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
-    discount    = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
+    price       = models.DecimalField( verbose_name='Цена', max_digits=10, decimal_places=2, default=100, validators=( MinValueValidator(0), MaxValueValidator(100000000),))
+    discount    = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(0), MaxValueValidator(100000000),))
     # price       = models.CharField(max_length=300, verbose_name="Цена")
     # discount    = models.CharField(max_length=300, blank=True, null=True, verbose_name="Скидка Цена")
     price_info  = models.CharField(max_length=300, blank=True, null=True, verbose_name="О цене")

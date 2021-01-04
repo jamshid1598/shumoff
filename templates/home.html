@@ -115,36 +115,30 @@
 										<div class="carousel-item active">
 														
 											<div class="col-12 col-sm-12 col-md-12 col-lg-4 pt-4 ">
-												<div class="card tools_blog_card"">
-
+												<div class="card tools_blog_card">
+													<img src="{{ product.imageURL }}" width="100%" height="200">
+													<h6 class="card-title text-center" style="height:50px;">{{ product.name }}</h6>
+													<span id="ProductPriceHidden" hidden>original</span>
+													<input type="number" id="OrderQuantity"placeholder="1" value="1" min="1" hidden>
 													{% if product.discount %}
-														<img src="{% static 'img/products/aksiaya.svg'%}" width="100%" height="200" class="card-img-overlay acsesuaryCartSale">
-														<img src="{{ product.imageURL }}" width="100%" height="200">
-													{% elif product.quantity == 0 %}
-														<img src="{% static 'img/products/sold-out.png'%}" width="100%" height="150" class="card-img-overlay acsesuaryCartSoldout">
-														<img src="{{ product.imageURL }}" width="100%" height="200">
+														<div class="form-inline justify-content-between">
+															<h6 class="pl-3">{{ product.discount }} {{ product.price_info }}</h6>
+															<h6 class="pr-3"><small><del>{{ product.price }} {{ product.price_info }}</del></small></h6>
+														</div>
 													{% else %}
-														<img src="{{ product.imageURL }}" width="100%" height="200">
+														<h6 class="pl-2">{{ product.price }} {{ product.price_info }}</h6>
 													{% endif %}
-
-														<h6 class="card-title text-center" style="height:50px;">{{ product.name }}</h6>
-
-														<span id="ProductPriceHidden" hidden>original</span>
-														<input type="number" id="OrderQuantity"placeholder="1" value="1" min="1" hidden>
-														
-														{% if product.discount %}
-															<div class="form-inline justify-content-between">
-																<h6 class="pl-3">{{ product.discount }} {{ product.price_info }}</h6>
-																<h6 class="pr-3"><small><del>{{ product.price }} {{ product.price_info }}</del></small></h6>
-															</div>
-														{% else %}
-															<h6 class="pl-2">{{ product.price }} {{ product.price_info }}</h6>
-														{% endif %}
 													<div class="card-footer border-0 form-inline justify-content-between h-75">
 														<button class="btn btn-outline-success tools_blog_info_btn" onclick="accessory_tool_detail_view(this)" id="{{ product.slug }}" data-toggle="modal" data-target="#toolsModal">
 															<i class="fad fa-info"></i>
 														</button>
-
+														<!-- discount and quantity -->
+														{% if product.quantity == 0 %}
+															<span class="text-secondary font-weight-bold">Продано</span>	
+														{% elif product.discount %}
+															<span class="text-secondary font-weight-bold">Скидка</span>
+														{% endif %}
+														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
 															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a>
@@ -162,36 +156,30 @@
 															
 											<div class="col-12 col-sm-12 col-md-12 col-lg-4 pt-4 ">
 												<div class="card tools_blog_card ">
-
-													{% if product.quantity == 0 %}
-														<img src="{% static 'img/products/no-availible.png'%}" width="100%" height="150" class="card-img-overlay acsesuaryCartSoldout" >													
-														<img src="{{ product.imageURL }}" width="100%" height="200">
-													{% elif product.discount %}
-														<img src="{% static 'img/products/aksiaya.svg'%}" width="100%" height="200" class="card-img-overlay acsesuaryCartSale">	
-														<img src="{{ product.imageURL }}" width="100%" height="200">
-													{% else %}
-														<img src="{{ product.imageURL }}" width="100%" height="200">
-													{% endif %}
-
+													<img src="{{ product.imageURL }}" width="100%" height="200">
 													<!-- <img src="{{ product.imageURL }}" width="100%" height="250"> -->
-														<h6 class="card-title text-center" style="height:50px;">{{ product.name }}</h6>
-
-														<span id="ProductPriceHidden" hidden>original</span>
-														<input type="number" id="OrderQuantity"placeholder="1" value="1" min="1" hidden>
-														
-														{% if product.discount %}
-															<div class="form-inline justify-content-between">
-																<h6 class="pl-3">{{ product.discount }} {{ product.price_info }}</h6>
-																<h6 class="pr-3"><small><del>{{ product.price }} {{ product.price_info }}</del></small></h6>
-															</div>
-														{% else %}
-															<h6 class="pl-2">{{ product.price }} {{ product.price_info }}</h6>
-														{% endif %}
+													<h6 class="card-title text-center" style="height:50px;">{{ product.name }}</h6>
+													<span id="ProductPriceHidden" hidden>original</span>
+													<input type="number" id="OrderQuantity"placeholder="1" value="1" min="1" hidden>
+													{% if product.discount %}
+														<div class="form-inline justify-content-between">
+															<h6 class="pl-3">{{ product.discount }} {{ product.price_info }}</h6>
+															<h6 class="pr-3"><small><del>{{ product.price }} {{ product.price_info }}</del></small></h6>
+														</div>
+													{% else %}
+														<h6 class="pl-2">{{ product.price }} {{ product.price_info }}</h6>
+													{% endif %}
 													<div class="card-footer border-0 form-inline justify-content-between h-75">
 														<button class="btn btn-outline-success tools_blog_info_btn" onclick="accessory_tool_detail_view(this)" id="{{ product.slug }}" data-toggle="modal" data-target="#toolsModal">
 															<i class="fad fa-info"></i>
 														</button>
-														
+														<!-- discount and quantity -->
+														{% if product.quantity == 0 %}
+															<span class="text-secondary font-weight-bold">Продано</span>	
+														{% elif product.discount %}
+															<span class="text-secondary font-weight-bold">Скидка</span>
+														{% endif %}
+														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
 															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a>
@@ -245,8 +233,6 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<img src="{% static 'img/products/aksiaya.svg'%}" width="100%" height="200" class="card-img-overlay" style="margin-left: -192px; margin-top:-42px; transform: rotate(17deg); z-index:1;">
-								<img src="{% static 'img/products/sold-out.png'%}" width="300" height="150" class="card-img-overlay" style="transform: rotate(-35deg); z-index:1; margin-top: 70px; margin-left:70px;">
 								<img src="{% static 'img/products/section5/1.jpg' %}" width="100%" height="250">
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -295,8 +281,25 @@
 							}
 
 							var quanity = fields["quantity"]
-							var sold_out_img = "{% static 'img/products/sold-out.png'%}"
-							var discount_img = "{% static 'img/products/aksiaya.svg'%}"
+							//var sold_out_img = "{% static 'img/products/sold_out.png'%}"
+							//var discount_img = "{% static 'img/products/акции.png'%}"
+							$("#AccessoryToolModalPage").html("");
+							$("#AccessoryToolModalPage").prepend(
+								`
+									<div class="modal-header">
+										<h5 class="modal-title" id="accesoriesModalLabel">${fields["name"]||""}</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span class="text-danger" aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<img src="${image_url}" width="100%" height="250">
+										${fields["description"]||""}
+										<h6 class="pt-2">Цена: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
+									</div>
+								`
+							)
+							/*
 							if(quanity == '0'){
 								$("#AccessoryToolModalPage").html("");
 								$("#AccessoryToolModalPage").prepend(
@@ -351,6 +354,8 @@
 									`
 								)
 							}
+							*/
+							
 						},
 						error: function() { 
 							console.log('Houston, we have a problem!');

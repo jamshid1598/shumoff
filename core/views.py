@@ -283,8 +283,21 @@ class HomeView(View):
 		news_img = New.objects.all()
 		home_img = Home.objects.all()
 		print(news_img)
+		home_images=[]
+		for i in home_img:
+			home_images.append(i)
 		self.context["news_imgs"] = news_img
 		self.context["home_imgs"] = home_img
+
+		self.context["home_img1"] = home_images[0]
+		# self.context["img_caption1"] = home_img
+		self.context["home_img2"] = home_images[1]
+		# self.context["img_caption2"] = home_img
+		self.context["home_img3"] = home_images[2]
+		# self.context["img_caption3"] = 
+		
+
+
 		self.context['category_list'] = category_list
 
 		return render(

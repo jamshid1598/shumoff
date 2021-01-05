@@ -1,107 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
 
 
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex;
-}
-
-/* display 3 */
-@media (min-width: 768px) {
-    
-    .carousel-inner .carousel-item-right.active,
-    .carousel-inner .carousel-item-next {
-      transform: translateX(33.333%);
-    }
-    
-    .carousel-inner .carousel-item-left.active, 
-    .carousel-inner .carousel-item-prev {
-      transform: translateX(-33.333%);
-    }
-}
-
-.carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left{ 
-  transform: translateX(0);
-}
-
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex;
-}
-
-
-
-
-
-@media (min-width: 992px){
-  .dropdown-menu .dropdown-toggle:after{
-    border-top: .3em solid transparent;
-      border-right: 0;
-      border-bottom: .3em solid transparent;
-      border-left: .3em solid;
-  }
-  .dropdown-menu .dropdown-menu{
-    margin-left:0; margin-right: 0;
-  }
-  .dropdown-menu li{
-    position: relative;
-  }
-  .nav-item .submenu{ 
-    display: none;
-    position: absolute;
-    left:100%; top:-7px;
-  }
-  .nav-item .submenu-left{ 
-    right:100%; left:auto;
-  }
-  .dropdown-menu > li:hover{ background-color: #f1f1f1 }
-  .dropdown-menu > li:hover > .submenu{
-    display: block;
-  }
-}
-
-
-
-#carousel .carousel-item {
-    /* height: 80vh; */
-    width: 100%;
-    /* min-height: 350px; */
-    background: no-repeat center center scroll;
-    background-size: cover;
-  }
-  
-  #carousel .carousel-inner .carousel-item {
-    transition: -webkit-transform 2s ease;
-    transition: transform 2s ease;
-    transition: transform 2s ease, -webkit-transform 2s ease;
-  }
-  
-  #carousel .carousel-item .caption {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 40px;
-    color: white;
-    animation-duration: 1s;
-    animation-delay: 2s;
-  }
-  
-  #carousel .caption h2 {
-    animation-duration: 1s;
-    animation-delay: 2s;
-  }
-  
-  #carousel .caption p {
-    animation-duration: 1s;
-    animation-delay: 2.2s;
-  }
-  
-  #carousel .caption a {
-    animation-duration: 1s;
-    animation-delay: 2.4s;
-  }
-  
 
 
 
@@ -122,13 +21,93 @@
     display: block;
   }
 
-  .caruselCaption{
-    margin-left:-10rem; 
-    margin-top:-30rem; 
-    width:45%; 
-    word-break:break-all;      
-    color: red;
-  }
+
+
+
+
+
+
+
+  @media only screen and (min-width:1500px){
+
+    #carouselHeaderCaption{
+        left: 0rem;
+        bottom: 25rem;
+        width: 40%;
+        word-wrap: break-word;
+    }
+    
+    
+    }
+    
+    
+    
+    @media (max-width:1500px) and (min-width:992px){
+    
+        #carouselHeaderCaption{
+            left: 0rem;
+            bottom: 10rem;
+            width: 50%;
+            word-wrap: break-word;
+        }
+        
+        
+        }
+        
+        
+        
+    @media (max-width:992px) and (min-width:600px){
+    
+        #carouselHeaderCaption{
+            left: 0rem;
+            bottom: 5rem;
+            width: 60%;
+            word-wrap: break-word;
+            font-size: 20px;
+        }
+        
+        
+        }
+        
+        
+        
+        
+    @media (max-width:600px){
+    
+        #carouselHeaderCaption{
+            left: 1rem;
+            bottom: 2rem;
+            width: 60%;
+            word-wrap: break-word;
+            font-size: 18px;
+        }
+        .slider-section{
+            padding-top: 80px;
+            margin-top: 50px;
+        }
+        
+        
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   /*Scrol top*/
   .btn-top{
@@ -148,33 +127,33 @@
   }
   
   
-  
-  
-  /* owl nav */
-  .owl-prev span, .owl-next span {
-      color: #FFF;
-  }
-  
-  .owl-prev span:hover, 
-  .owl-next span:hover {
-      color: #8199A3;
-      outline: none;
-      border: none;
-  }
-  
-  .owl-prev, .owl-next {
+  @media (min-width: 992px){
+    .dropdown-menu .dropdown-toggle:after{
+      border-top: .3em solid transparent;
+        border-right: 0;
+        border-bottom: .3em solid transparent;
+        border-left: .3em solid;
+    }
+    .dropdown-menu .dropdown-menu{
+      margin-left:0; margin-right: 0;
+    }
+    .dropdown-menu li{
+      position: relative;
+    }
+    .nav-item .submenu{ 
+      display: none;
       position: absolute;
-      top: 0;
-      height: 100%;
+      left:100%; top:-7px;
+    }
+    .nav-item .submenu-left{ 
+      right:100%; left:auto;
+    }
+    .dropdown-menu > li:hover{ background-color: #f1f1f1 }
+    .dropdown-menu > li:hover > .submenu{
+      display: block;
+    }
   }
   
-  .owl-prev {
-      left: 0px;
-  }
-  
-  .owl-next {
-      right: 0px;
-  }
   button:focus, button:active {
      outline: none;
   }
@@ -518,10 +497,7 @@ footer h5{
 
 @media (max-width:576px){
 
-    .header-carusel{
-        height: 250px;
-        /* font-size: 12px; */
-    }
+
     header .nav-link{
         font-size: 25px;
     }

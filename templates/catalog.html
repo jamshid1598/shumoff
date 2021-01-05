@@ -48,7 +48,7 @@
 									<ul class="list-unstyled mb-0 mt-0 ">																							
 										{% for product in category.product_category.all %}
 											<li class="p-2 border vibration-item" >
-												<a href="{% url 'Core:category-detail-view' category.slug product.slug %}"  class="catologProductItems" >
+												<a href="{% url 'Core:category-detail-view' category.slug %}#productPosition{{ product.pk }}"  class="catologProductItems" >
 													{{ product.name }}
 												</a>
 											</li>
@@ -65,7 +65,7 @@
 									<ul class="list-unstyled mb-0 mt-0 ">																							
 										{% for product in category.product_category.all %}
 											<li class="p-2 border vibration-item" >
-												<a href="{% url 'Core:category-detail-view' category.slug product.slug %}"  class="catologProductItems" >
+												<a href="{% url 'Core:category-detail-view' category.slug %}#productPosition{{ product.pk }}"  class="catologProductItems" >
 													{{ product.name }}
 												</a>
 											</li>
@@ -118,6 +118,104 @@
 			<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-9">
 				<div class="row">
 					
+					
+					{% if category.product_category.all %}
+						{% for product in category.product_category.all %}
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 border p-3 shadow-lg" id="productPosition{{ product.pk }}">
+							<div class="row imglist">
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center">
+									{% if product.quantity == 0 %}
+										<img src="{% static 'img/products/sold_out.png'%}" width="200" height="150" class="card-img-overlay" style=" z-index:1; margin-top: 0rem;">
+										{% thumbnail product.image "1000" as big %}
+											{% thumbnail product.image "500" crop="center" as small %}
+												<a href="{{ big.url }}"  data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
+													<img src="{{ small.url }}" width="100%" height="250">
+												</a>
+											{% endthumbnail %}
+										{% endthumbnail %}
+									{% elif product.discount %}
+										<img src="{% static 'img/products/акции.png'%}" width="200" height="200" class="card-img-overlay" style=" margin: 10px auto; z-index:1;">
+										{% thumbnail product.image "1000" as big %}
+											{% thumbnail product.image "500" crop="center" as small %}
+												<a href="{{ big.url }}"  data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
+													<img src="{{ small.url }}" width="100%" height="250">
+												</a>
+											{% endthumbnail %}
+										{% endthumbnail %}
+									{% else %}
+										{% thumbnail product.image "1000" as big %}
+											{% thumbnail product.image "500" crop="center" as small %}
+												<a href="{{ big.url }}"  data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
+													<img src="{{ small.url }}" width="100%" height="250">
+												</a>
+											{% endthumbnail %}
+										{% endthumbnail %}
+									{% endif %}
+	
+									<div class="row pt-2">
+	
+										{% if product.product_images.all %}
+											{% for image in product.product_images.all %}
+												<div class="col-4 col-sm-4 col-md-4 col-lg-4 pr-1">
+													{% thumbnail image.image "1000" as big %}
+														{% thumbnail image.image "150" crop="center" as small %}
+															<a href="{{ big.url }}" data-fancybox="false" data-caption="{{ product.caption|default_if_none:'Image' }}">
+																<img src="{{ small.url }}" width="100%" height="75">
+															</a>	
+														{% endthumbnail %}
+													{% endthumbnail %}									
+												</div>
+											{% endfor %}
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 border">							
+									<h3 class="border-bottom">{{ product.name }}</h3>	
+									<span class="bg-danger">{{ product.short_description|safe }}</span>
+									<span class="text-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >Подробно <i class="fad fa-angle-double-right"></i></span>
+								</div>
+						
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center border pt-3">
+									<h5><span id="ProductPrice">{% if product.discount %} <small><del>{{ product.price }}</del> {{ product.price_info }}</small><br> {{ product.discount }} {% else %} {{ product.price }} {% endif %}</span> <span id="ProductPriceInfo">{{ product.price_info }}</span></h5>
+									<span id="ProductPriceHidden" hidden>original</span>
+									
+									<div class="input-group mb-1 w-75 m-auto">
+										<a class="text-decoration-none input-group-text remove-quantity-btn" href="#!">-</a></span>
+										<input type="text" id="OrderQuantity" class="form-control quantity-input" placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
+										<a class="text-decoration-none input-group-text add-quantity-btn" href="#!">+</a></span>
+									</div>
+	
+									
+										  <select class="mt-2 w-75">
+											<option class="active" onclick="product_price(this)" data-price="{% if product.discount %} {{ product.discount }} {% else %} {{ product.price }} {% endif %}" data-priceinfo="{{ product.price_info }}" data-pk="original" data-discount="{% if product.discount %}{{product.price}}{% else %}discount{% endif %}">{{ product.product_option }}</option>
+											{% for p_type in product.product_price_option.all %}
+												<option onclick="product_price(this)" data-price="{% if p_type.discount %} {{ p_type.discount }} {% else %} {{ p_type.price }} {% endif %}" data-priceinfo="{{ p_type.price_info }}" data-pk="{{ p_type.pk }}" data-discount="{% if p_type.discount %}{{p_type.price}}{% else %}discount{% endif %}">{{ p_type.product_option }}</option>
+											{% endfor %}
+										  </select>
+	
+	
+									<small onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" class="btn btn-outline-success w-75 mt-2 mb-3 add-to-basket popup">
+										<i class="fad pr-2 fa-cart-arrow-down"></i>
+										Купить
+										<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a>
+										<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</a>
+									</small>
+								</div>	
+	
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 pl-2 pr-0">
+									  
+									<div class="collapse" id="collapseExample">
+										<div class="card card-body">
+											{{ product.description|safe }}
+										</div>
+									  </div>
+								</div>
+							</div>								
+						</div>
+						{% endfor %}
+					{% endif %}
+						
+					{% comment %}
 					{% if product %}
 
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 border p-3 shadow-lg">
@@ -213,6 +311,8 @@
 					</div>
 					
 					{% endif %}
+					{% endcomment %}
+					
 
 				</div>
 			</div>

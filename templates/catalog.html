@@ -172,7 +172,7 @@
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 border">							
 									<h3 class="border-bottom">{{ product.name }}</h3>	
 									<span class="bg-danger">{{ product.short_description|safe }}</span>
-									<span class="text-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >Подробно <i class="fad fa-angle-double-right"></i></span>
+									<span class="text-primary" data-toggle="collapse" data-target="#collapseExample{{product.pk}}" aria-expanded="false" aria-controls="collapseExample" >Подробно <i class="fad fa-angle-double-right"></i></span>
 								</div>
 						
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center border pt-3">
@@ -204,7 +204,7 @@
 	
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 pl-2 pr-0">
 									  
-									<div class="collapse" id="collapseExample">
+									<div class="collapse" id="collapseExample{{product.pk}}">
 										<div class="card card-body">
 											{{ product.description|safe }}
 										</div>

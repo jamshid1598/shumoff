@@ -10,7 +10,7 @@ function cart_detail_view($this){
 	  console.log("cart-page")
 	} else {
 	  price_option_pk = document.getElementById("ProductPriceHidden").innerHTML;
-	  order_quantity = document.getElementById("OrderQuantity").value; 
+	  order_quantity = document.getElementById("OrderQuantity"+productPk.toString()).value; 
 	}
 	console.log('productPk: ', productPk, 'Action:', action);
 	console.log('USER: ', user);

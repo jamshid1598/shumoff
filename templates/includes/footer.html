@@ -1,14 +1,14 @@
 {% load static %}
 
 <footer class="container-fluid pl-0 pr-0 border-top">
-	<div class="container-fluid pt-5 pb-2">                
-		<div class="row w-75 m-auto">
+	<div class="container pt-5 pb-2">                
+		<div class="row ">
 			<div class="col-12 col-sm-12 col-md-12 col-lg-3 text-center">
 				<a href="index.html"><img src="{% static 'img/svg/logo-shumoff-white.svg' %}" width="150" class="footer-logo" height="75" alt="logo"></a>
 			</div>
 			<div class="col-12 col-sm-12 col-md-12 col-lg-4 text-center">
 				<div class="footer-address">
-					<h2 class="text-center footer_title">Kонтакт</h2>
+					<h2 class="footer_title">Kонтакт</h2>
 					<div class="list-unstyled d-inline-block">
 						<span class="d-flex">
 							<i class="fa fa-home pt-2"></i>
@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-sm-12 col-md-12 col-lg-5 social_icon_div pt-5">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-5 social_icon_div ">
 				<div class="social__icon list-unstyled">
 					<span class="icon_instagram">
 						<a href="https://www.instagram.com/accounts/login/?hl=ru">
@@ -30,7 +30,7 @@
 					</span>
 
 					<span class="icon_telegram">
-						<a href="#!"><i class="fab fa-telegram"></i></a>
+						<a href="https://t.me/"><i class="fab fa-telegram"></i></a>
 				</span>
 
 					<span class="icon_facebook">
@@ -41,10 +41,13 @@
 				</div>
 			</div>
 		</div>
-			<div class="row pt-1">
-			<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center footer_info">
-				{% now  "Y" as current_year %}
-				<span>&copy; {{current_year}} Все право зашишены.</br> Сайт разработан в студио инновационныз разработок MYWEB.UZ.</span>
+		
+	</div>
+	<div class="container">
+		<div class="row pt-1 pb-3">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 footer_info form-inline justify-content-between">
+				<span>{% now  "Y" as current_year %}&copy; {{current_year}} Все право зашишены.</span>
+				<span>Сайт разработан в студио инновационныз разработок MYWEB.UZ.</span>
 			</div>
 		</div>
 	</div>

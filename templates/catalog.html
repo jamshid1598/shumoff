@@ -175,14 +175,14 @@
 									<span class="text-primary" data-toggle="collapse" data-target="#collapseExample{{product.pk}}" aria-expanded="false" aria-controls="collapseExample" >Подробно <i class="fad fa-angle-double-right"></i></span>
 								</div>
 						
-								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center border pt-3">
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center border pt-3 ">
 									<h5><span id="ProductPrice">{% if product.discount %} <small><del>{{ product.price }}</del> {{ product.price_info }}</small><br> {{ product.discount }} {% else %} {{ product.price }} {% endif %}</span> <span id="ProductPriceInfo">{{ product.price_info }}</span></h5>
 									<span id="ProductPriceHidden" hidden>original</span>
 									
-									<div class="input-group mb-1 w-75 m-auto">
-										<a class="text-decoration-none input-group-text remove-quantity-btn" href="#!">-</a></span>
-										<input type="text" id="OrderQuantity" class="form-control quantity-input" placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
-										<a class="text-decoration-none input-group-text add-quantity-btn" href="#!">+</a></span>
+									<div class="input-group mb-1 w-75 m-auto quantityBtnGroup">
+										<a class=" text-decoration-none input-group-text remove-quantity-btn" onclick="remove_or_add(this)" data-id="remove" data-product="{{  product.pk }}" >-</a></span>
+										<input type="text" id="OrderQuantity{{  product.pk }}" class="form-control quantity-input{{product.pk}}"  placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
+										<a class="text-decoration-none input-group-text add-quantity-btn" onclick="remove_or_add(this)" data-id="add" data-product="{{  product.pk }}" >+</a></span>
 									</div>
 	
 									
@@ -212,9 +212,15 @@
 								</div>
 							</div>								
 						</div>
+
+
+
+
 						{% endfor %}
 					{% endif %}
 						
+
+
 					{% comment %}
 					{% if product %}
 

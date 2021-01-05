@@ -61,16 +61,47 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
   });
     
 
+
+  function remove_or_add($this){
+    var buttonId = $this.dataset.id;
+    var productPk = $this.dataset.product;
+    var order_quantity = 1
+    if (buttonId == "add"){
+      console.log("add", productPk)
+      increase_quantity(productPk)
+    } else {
+      console.log("remove", productPk)
+      decrease_quantity(productPk)
+    }
+  }
+
+  function increase_quantity(pk){
+    var input_value = document.getElementById('OrderQuantity'+pk.toString()).value;
+    input_value++;
+    document.getElementById('OrderQuantity'+pk.toString()).value = input_value;
+  }
+  function decrease_quantity(pk){
+    var input_value = document.getElementById('OrderQuantity'+pk.toString()).value;
+    input_value--;
+    if (input_value <= 0) {
+      return;
+    }
+    document.getElementById('OrderQuantity'+pk.toString()).value = input_value;
+  }
+
+
+
+
   $('.add-quantity-btn').click(function(){
 
-    var productQuantityIpt = document.querySelector(".quantity-input");
-    var productQuantityInput = document.querySelector(".quantity-input").value;
+    var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
+    var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
+
     var productQuantity = parseInt(productQuantityInput, 10); 
     
     productQuantity++;
   
     productQuantityIpt.value = productQuantity;
-    
     });
   
 
@@ -79,8 +110,8 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
 
 
 $('.remove-quantity-btn').click(function(){
-  var productQuantityIpt = document.querySelector(".quantity-input");
-  var productQuantityInput = document.querySelector(".quantity-input").value;
+  var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
+  var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
   var productQuantity = parseInt(productQuantityInput, 10); 
   
   productQuantity--;
@@ -93,6 +124,11 @@ $('.remove-quantity-btn').click(function(){
 
 
 });
+
+
+
+
+
 
 
   // Crol to top

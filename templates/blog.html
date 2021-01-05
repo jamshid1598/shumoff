@@ -49,7 +49,7 @@
 		</div>
 
 
-		<section class="container-fluid pl-0 pr-0 pb-5" id="tools_container">
+		<section class="container-fluid pl-0 pr-0" id="tools_container">
 			<div class="container pt-5 pb-5" id="tools_section">
 				<div class="row pl-3 pr-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 tools_col_title">
@@ -185,64 +185,6 @@
 									`
 								)
 
-								/*
-								var quanity = fields["quantity"]
-								var sold_out_img = "{% static 'img/products/sold-out.png'%}"
-								var discount_img = "{% static 'img/products/aksiaya.svg'%}"
-								if(quanity == '0'){
-									$("#AccessoryToolModalPage").html("");
-									$("#AccessoryToolModalPage").prepend(
-										`
-											<div class="modal-header">
-												<h5 class="modal-title" id="accesoriesModalLabel">${fields["name"]||""}</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span class="text-danger" aria-hidden="true">&times;</span>
-												</button>
-									var sold_out_img = "{% static 'img/products/sold-out.png'%}"
-								var discount_img = "{% static 'img/products/aksiaya.svg'%}"			<img src="${sold_out_img}" width="300" height="150" class="card-img-overlay" style="transform: rotate(-35deg); z-index:1; margin-top: 70px; margin-left:70px;">
-												<img src="${image_url}" width="100%" height="250">
-												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
-											</div>
-										`
-									)
-								} else if(discount != null){
-									$("#AccessoryToolModalPage").html("");
-									$("#AccessoryToolModalPage").prepend(
-										`
-											<div class="modal-header">
-												<h5 class="modal-title" id="accesoriesModalLabel">${fields["name"]||""}</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span class="text-danger" aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<img src="${discount_img}" width="100%" height="200" class="card-img-overlay" style="margin-left: -192px; margin-top:-42px; transform: rotate(17deg); z-index:1;">
-												<img src="${image_url}" width="100%" height="250">
-												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
-											</div>
-										`
-									)
-								}else{
-									$("#AccessoryToolModalPage").html("");
-									$("#AccessoryToolModalPage").prepend(
-										`
-											<div class="modal-header">
-												<h5 class="modal-title" id="accesoriesModalLabel">${fields["name"]||""}</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span class="text-danger" aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<img src="${image_url}" width="100%" height="250">
-												${fields["description"]||""}
-												<h6 class="pt-2">Стоимость: <span>${price||""}</span> ${fields["price_info"]||""}</h6>
-											</div>
-										`
-									)
-								}
-								*/
 								
 							},
 							error: function() { 
@@ -256,7 +198,7 @@
 
 
 			<div class="container pl-0 pr-0" id="work_container">
-				<div class="row pl-3 pr-3 pb-4  ">
+				<div class="row pl-3 pr-3 pb-5  ">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 tools_col_title">
 						<h3 class="font-weight-bold text-center p-3">РЕШАЕМЫЕ ЗАДАЧИ</h3>
 					</div>
@@ -305,12 +247,12 @@
 				
 				<div class="modal fade mt-5"  id="exampleModal{{video.pk}}" tabindex="-1" role="dialog" aria-labelledby="ustanovkaModal" aria-hidden="true">
 					<div class="modal-dialog mt-5" role="document" id="ustanovkaModalSectionContent" style=" text-align:center; ">
-						<div class="modal-content mt-5" style="min-width:900px; min-height: 700px; margin-left: -200px;" >
+						<div class="modal-content mt-5" >
 							<h5 class="pt-5 instruction-title" id="ustanovkaModal"><span class="modal-title">{{ video.name }}</span>
 								<span type="button" class="close float-right pr-4 text-danger" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
 							</h5>
 							<div class="modal-body flex-grow-0">
-								<video id="intro" type="video/mp4" controls preload autoplay width="100%" height="100%">
+								<video id="intro" type="video/mp4" controls preload autoplay="false" width="100%" height="100%">
 									<source src="{{ video.video.url }}" type="video/mp4">
 								</video>
 							</div>

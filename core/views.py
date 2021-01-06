@@ -56,26 +56,12 @@ def cart_detail_view(request):
 	# print('price_option_pk ', type(price_option_pk))
 
 	customer = request.user.customer
-	# print(customer)
 	product = Product.objects.get(pk=productPk)
-
-	# calculate all related product quantities
-	# product_quantity = 0
-	# product_quantity = product_quantity + product.quantity
-	# if product.product_price_option.all():
-	# 			n=0
-	# 			n = sum([p.quantity for p in product.product_price_option.all()])
-	# 			product_quantity = product_quantity + n
-	# calculate all related product quantities
 
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, option_pk=price_option_pk)
 	done_action = {"added":False, "one_more":False, "already_added":False, "less_then":False, "available_quanity":0}
-
-	# print(orderItem.order)
-	# print(orderItem.product)
-	# print(orderItem.option_pk)
 
 	product_type = None
 	if price_option_pk != 'original':
@@ -89,14 +75,6 @@ def cart_detail_view(request):
 		orderItem.option_price    = product_type.price
 		orderItem.option_discount = product_type.discount
 		orderItem.option_info     = product_opt
-
-		# if int(order_quantity) > product_type.quantity:
-		#   done_action["less_then"] = True
-		#   done_action["available_quanity"] = product_type.quantity
-
-		# if action == 'add' and pageId == "product-page"  and product_type.quantity > orderItem.quantity:
-		#   orderItem.quantity   = (orderItem.quantity + 1)
-		#   done_action["added"] = True
 
 		if action == 'add' and pageId == "product-page" and product_type.quantity >= int(order_quantity):
 			orderItem.quantity   = (orderItem.quantity + int(order_quantity))
@@ -288,16 +266,6 @@ class HomeView(View):
 			home_images.append(i)
 		self.context["news_imgs"] = news_img
 		self.context["home_imgs"] = home_img
-
-		self.context["home_img1"] = home_images[0]
-		# self.context["img_caption1"] = home_img
-		self.context["home_img2"] = home_images[1]
-		# self.context["img_caption2"] = home_img
-		self.context["home_img3"] = home_images[2]
-		# self.context["img_caption3"] = 
-		
-
-
 		self.context['category_list'] = category_list
 
 		return render(
@@ -306,21 +274,6 @@ class HomeView(View):
 			self.context
 		)
 
-
-# class CategoryDetailView(View):
-# 	template_name='catalog.html'
-# 	context={}
-
-# 	def get(self, request, pk=None, *args, **kwargs):
-# 		category = get_object_or_404(Category, pk=pk)
-# 		category_list = Category.objects.all()
-# 		self.context['category'] = category
-# 		self.context['category_list'] = category_list
-# 		return render(
-# 			request,
-# 			self.template_name,
-# 			self.context
-# 		)
 
 class CategoryDetailView(View):
 	template_name='catalog.html'

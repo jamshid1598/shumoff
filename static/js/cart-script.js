@@ -9,7 +9,7 @@ function cart_detail_view($this){
 	if (pageId == "cart-page"){
 	  console.log("cart-page")
 	} else {
-	  price_option_pk = document.getElementById("ProductPriceHidden").innerHTML;
+	  price_option_pk = document.getElementById("ProductPriceHidden"+productPk.toString()).innerHTML;
 	  order_quantity = document.getElementById("OrderQuantity"+productPk.toString()).value; 
 	}
 	console.log('productPk: ', productPk, 'Action:', action);
@@ -80,11 +80,12 @@ function cart_detail_view($this){
 	var price = $this.dataset.price;
 	var price_info = $this.dataset.priceinfo;
 	var pk = $this.dataset.pk;
+	var productpk = $this.dataset.productpk
 	var discount = $this.dataset.discount
   
-	var display_price = document.getElementById("ProductPrice");
-	var display_price_info = document.getElementById("ProductPriceInfo");
-	var price_option = document.getElementById("ProductPriceHidden");
+	var display_price = document.getElementById("ProductPrice"+productpk.toString());
+	var display_price_info = document.getElementById("ProductPriceInfo"+productpk.toString());
+	var price_option = document.getElementById("ProductPriceHidden"+productpk.toString());
 
 	if (discount == 'discount'){
 		display_price.innerHTML = price;

@@ -176,21 +176,19 @@
 								<!-- End Main Info About Product -->
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-center border pt-3 ">
 									<!-- Product Price -->
-									<h5><span id="ProductPrice">{% if product.discount %} <small><del>{{ product.price }}</del> {{ product.price_info }}</small><br> {{ product.discount }} {% else %} {{ product.price }} {% endif %}</span> <span id="ProductPriceInfo">{{ product.price_info }}</span></h5>
+									<h5><span id="ProductPrice{{ product.pk }}">{% if product.discount %} <small><del>{{ product.price }}</del> {{ product.price_info }}</small><br> {{ product.discount }} {% else %} {{ product.price }} {% endif %}</span> <span id="ProductPriceInfo{{ product.pk }}">{{ product.price_info }}</span></h5>
 									<!-- End Product Price -->
 									<!-- Product Price Option -->
-									<span id="ProductPriceHidden" hidden>
-										original
-									</span>
+									<span id="ProductPriceHidden{{ product.pk }}" hidden>original</span>
 									<div class="input-group mb-1 w-75 m-auto quantityBtnGroup">
 										<a class=" text-decoration-none input-group-text remove-quantity-btn" onclick="remove_or_add(this)" data-id="remove" data-product="{{  product.pk }}" >-</a></span>
 										<input type="text" id="OrderQuantity{{  product.pk }}" class="form-control quantity-input{{product.pk}}"  placeholder="1" value="1" min="1" aria-label="Username" aria-describedby="basic-addon1">
 										<a class="text-decoration-none input-group-text add-quantity-btn" onclick="remove_or_add(this)" data-id="add" data-product="{{  product.pk }}" >+</a></span>
 									</div>
 									<select class="mt-2 w-75">
-										<option class="active" onclick="product_price(this)" data-price="{% if product.discount %} {{ product.discount }} {% else %} {{ product.price }} {% endif %}" data-priceinfo="{{ product.price_info }}" data-pk="original" data-discount="{% if product.discount %}{{product.price}}{% else %}discount{% endif %}">{{ product.product_option }}</option>
+										<option class="active" onclick="product_price(this)" data-productpk="{{ product.pk }}" data-price="{% if product.discount %} {{ product.discount }} {% else %} {{ product.price }} {% endif %}" data-priceinfo="{{ product.price_info }}" data-pk="original" data-discount="{% if product.discount %}{{product.price}}{% else %}discount{% endif %}">{{ product.product_option }}</option>
 										{% for p_type in product.product_price_option.all %}
-											<option onclick="product_price(this)" data-price="{% if p_type.discount %} {{ p_type.discount }} {% else %} {{ p_type.price }} {% endif %}" data-priceinfo="{{ p_type.price_info }}" data-pk="{{ p_type.pk }}" data-discount="{% if p_type.discount %}{{p_type.price}}{% else %}discount{% endif %}">{{ p_type.product_option }}</option>
+											<option onclick="product_price(this)" data-productpk="{{ product.pk }}" data-price="{% if p_type.discount %} {{ p_type.discount }} {% else %} {{ p_type.price }} {% endif %}" data-priceinfo="{{ p_type.price_info }}" data-pk="{{ p_type.pk }}" data-discount="{% if p_type.discount %}{{p_type.price}}{% else %}discount{% endif %}">{{ p_type.product_option }}</option>
 										{% endfor %}
 									</select>
 									<!-- Product Price Option -->

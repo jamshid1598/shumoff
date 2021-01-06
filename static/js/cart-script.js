@@ -4,10 +4,10 @@ function cart_detail_view($this){
 	var productPk = $this.dataset.product;
 	var action = $this.dataset.action;
 	var pageId = $this.dataset.id;
-	var price_option_pk = $this.dataset.optionpk
-	var order_quantity = 1
+	var price_option_pk = $this.dataset.optionpk;
+	var order_quantity = 1;
 	if (pageId == "cart-page"){
-	  console.log("cart-page")
+	  console.log("cart-page");
 	} else {
 	  price_option_pk = document.getElementById("ProductPriceHidden"+productPk.toString()).innerHTML;
 	  order_quantity = document.getElementById("OrderQuantity"+productPk.toString()).value; 
@@ -15,23 +15,23 @@ function cart_detail_view($this){
 	console.log('productPk: ', productPk, 'Action:', action);
 	console.log('USER: ', user);
 	console.log('USER: ', user);
-	console.log('order_quantity: ', order_quantity)
+	console.log('order_quantity: ', order_quantity);
 	
 	console.log('price_option_pk: ', price_option_pk);
   
 	if (user == 'AnonymousUser'){
-	  LoginSignUpFunction(productPk)
-	  console.log("User is not logged in")
+	  LoginSignUpFunction(productPk);
+	  console.log("User is not logged in");
 	}else{
-	  console.log("User is logged in")
-	  updateUserOrder(productPk, action, pageId, price_option_pk, order_quantity)
+	  console.log("User is logged in");
+	  updateUserOrder(productPk, action, pageId, price_option_pk, order_quantity);
 	}  
   }
   
   function updateUserOrder(productPk, action, pageId, price_option_pk, order_quantity){
-	console.log('User is authenticated, sending data...')
+	console.log('User is authenticated, sending data...');
   
-	var url = '/ajax/cart/detail/'
+	var url = '/ajax/cart/detail/';
   
 	fetch(url, {
 	  method:'POST',

@@ -25,9 +25,9 @@
 	<!-- end body -->
 	{% block body %}
 
-		<div class="container pt-5" id="installation_section">
-			<div class="row pt-5">
-				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+		<div class="container pl-0 pr-0 pt-5" id="installation_section">
+			<div class="row m-0 pt-5">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12 pr-3 pl-3">
 					 <div class="row p-5">
 						{% for video in videos %}
 							<div class="col-12 col-sm-12 col-md-12 text-center col-lg-4 form-group">                                  
@@ -49,9 +49,9 @@
 		</div>
 
 
-		<section class="container-fluid pl-0 pr-0" id="tools_container">
+		<section class="container-fluid pl-3 pr-3" id="tools_container">
 			<div class="container pt-5 pb-5" id="tools_section">
-				<div class="row pl-3 pr-3">
+				<div class="row m-0 pl-3 pr-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 tools_col_title">
 						<h3 class="font-weight-bold text-center p-3">ИНСТРУМЕНТЫ</h3>
 					</div>
@@ -80,7 +80,7 @@
 											</button>
 											
 											<span id="ProductPriceHidden" hidden>original</span>
-											<input type="number" id="OrderQuantity"placeholder="1" value="1" min="1" hidden>
+											<input type="text" id="OrderQuantity{{  tool.pk }}" placeholder="1" value="1" min="1" hidden>
 											<!-- discount and quantity -->
 											{% if tool.quantity == 0 %}
 												<span class="text-secondary font-weight-bold">Продано</span>	
@@ -106,7 +106,7 @@
 
 
 
-			<section class="container-fluid pl-0 pr-0 w-100" id="main_container">
+			<section class="container-fluid pl-3 pr-3" id="main_container">
 
 				<section class="container-fluid">
 					<!-- Modal -->
@@ -198,7 +198,7 @@
 
 
 			<div class="container pl-0 pr-0" id="work_container">
-				<div class="row pl-3 pr-3 pb-5  ">
+				<div class="row m-0 pl-3 pr-3 pb-5  ">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12 tools_col_title">
 						<h3 class="font-weight-bold text-center p-3">РЕШАЕМЫЕ ЗАДАЧИ</h3>
 					</div>

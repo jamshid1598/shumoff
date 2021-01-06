@@ -696,7 +696,7 @@ def search_query(request, *args, **kwargs):
 	object_list = None
 	if len(query) > 0:
 			object_list = Product.objects.filter(
-				Q(name__contains=query) | Q(slug__contains=query) | Q(description__contains=query) 
+				Q(name__icontains=query) or Q(slug__icontains=query) or Q(description__icontains=query) 
 			)
 	if object_list.count() > 0:
 		try:

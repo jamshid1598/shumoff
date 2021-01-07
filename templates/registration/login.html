@@ -23,10 +23,10 @@
 		<div class="container-fluid loginForm" style="min-height: 78.7vh; ">
 		
 				<div class="card border-0 w-100">
-					<div class="card-body border text-center" style="margin: auto;">
+					<div class="card-body border text-center" style="margin:50px auto;">
 						<h3 class="text-dark pb-5">Авторизоваться</h3>
 						
-						<form  class="" method="POST" action="{% url  'User:login' %}">
+						<form  class="" method="POST" action="{% url  'login' %}">
 
 							{% csrf_token %}
 							<input id="id_username" name="username" placeholder="Email" type="text" class="form-control mb-1">

@@ -68,7 +68,7 @@
 									{% endif %}
 									<a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>             
 								{% else %}
-									<a class="dropdown-item" href="{% url 'User:login' %}?next={{request.path}}">Авторизоваться</a>     
+									<a class="dropdown-item" href="{% url 'login' %}?next={{request.path}}">Авторизоваться</a>     
 									<a class="dropdown-item" href="{% url 'User:register' %}">Регистрация</a><br>
 								{% endif %}
 							</div>        

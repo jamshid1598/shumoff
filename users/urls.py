@@ -10,8 +10,8 @@ app_name = 'User'
 
 urlpatterns = [
     path('register/', NewUserCreationForm.as_view(), name='register'),
-    # path('login/', auth_view.LoginView.as_view(template_name="registration/login.html", authentication_form=UserLoginForm), name='login'),
-    path('login/', CustomLoginView.as_view(), name='login'),
+    path('login/', auth_view.LoginView.as_view(template_name="registration/login.html", authentication_form=UserLoginForm, extra_context={"cotegory_list": Category.objects.all()}), name='login'),
+    # path('login/', CustomLoginView.as_view(), name='login'),
 
     # reset password viewes' urls
     path('password-change/', auth_view.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),

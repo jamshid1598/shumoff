@@ -24,11 +24,11 @@ from core.models  import Category
 # Create your views here.
 
 
-class LoginView(auth_view.LoginView):
+class CustomLoginView(auth_view.LoginView):
     template_name="registration/login.html", 
     # authentication_form=UserLoginForm
     form_class = UserLoginForm
-
+   
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category_list"] = Category.objects.all()

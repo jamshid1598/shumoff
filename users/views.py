@@ -16,15 +16,33 @@ from django.core.mail import send_mail
 from django.conf import settings
 # from shumoff import settings
 
+from django.contrib.auth import views as auth_view
+from .forms import UserLoginForm
+
 from .forms import NewUserForm
 from core.models  import Category
 # Create your views here.
 
 
+class LoginView(auth_view.LoginView):
+    template_name="registration/login.html", 
+    # authentication_form=UserLoginForm
+    form_class = UserLoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
+
 class NewUserCreationForm(CreateView):
     template_name = 'registration/register.html'
     form_class = NewUserForm
     success_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
 
 def logout(request):
 	logout(request)

@@ -47,8 +47,14 @@
 					</ul>
 				 
 					<div class="float-lg-right headerForm">        
-						<span class="pl-3 span_search m-auto"><i class="fa fa-search text-white" data-toggle="modal" data-target="#searchModal" ></i></span>
-						<span class="pl-2"><a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" onclick="open_cart_panel(this)" id="cart-id"><i class="fas fa-cart-plus text-white"></i></a></span>
+						<span class="pl-3 span_search m-auto">
+							<i class="fa fa-search text-white" data-toggle="modal" data-target="#searchModal" ></i>
+						</span>
+						<span class="pl-2">
+							<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" onclick="open_cart_panel(this)" id="cart-id">
+								<i class="fas fa-cart-plus text-white"></i>
+							</a>
+						</span>
 						<span class="pl-2 dropdown text-center" >
 							<!-- <img src="{% static 'img/icon/user.png' %}" width="30" height="30" class="dropdown-toggle userImg" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 							<i class="fa fa-user dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></i>
@@ -62,7 +68,7 @@
 									{% endif %}
 									<a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>             
 								{% else %}
-									<a class="dropdown-item" href="{% url 'login' %}?next={{request.path}}">Авторизоваться</a>     
+									<a class="dropdown-item" href="{% url 'User:login' %}?next={{request.path}}">Авторизоваться</a>     
 									<a class="dropdown-item" href="{% url 'User:register' %}">Регистрация</a><br>
 								{% endif %}
 							</div>        

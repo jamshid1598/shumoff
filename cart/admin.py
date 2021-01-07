@@ -54,7 +54,7 @@ class OrderedItemAdmin(admin.ModelAdmin):
     list_display_links = ('customer', 'product', )
     # list_editable      = ('author', )
     ordering           = ('customer', 'product', 'product_amount', 'single_price', 'total_price', 'date_ordered', 'completed',  )
-    search_fields      = ('customer', 'product', 'product_amount', 'single_price', 'total_price', 'date_ordered', 'completed', )
+    search_fields      = ('product', 'product_amount', 'single_price', 'total_price', 'date_ordered', 'completed', )
 
     fieldsets = (
         (

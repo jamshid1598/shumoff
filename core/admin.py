@@ -49,7 +49,7 @@ class ProductAdmin(AdminImageMixin, admin.ModelAdmin):
      
     list_display       = ('category', 'name', 'price', 'discount', "product_option", "quantity", 'published_at', 'updated_at', )
     list_display_links = ('name', 'published_at', 'updated_at', )
-    search_fields      = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
+    search_fields      = ('name', 'price', 'discount', 'published_at', 'updated_at', )
     ordering           = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
     list_editable      = ('price', 'discount',   'category', "quantity", )
 

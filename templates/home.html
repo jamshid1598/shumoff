@@ -135,7 +135,10 @@
 														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
-															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a>
+															<span class="popuptext" id="PopupNotification{{product.pk}}">
+																<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Войти</a> / <a href="{% url 'User:register' %}" class="text-white">Регистрация</a>
+															</span>
+															<!-- <a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a> -->
 															<p class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</p>
 														</button>
 													</div>
@@ -176,7 +179,10 @@
 														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
-															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a>
+															<span class="popuptext" id="PopupNotification{{product.pk}}">
+																<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Войти</a> / <a href="{% url 'User:register' %}" class="text-white">Регистрация</a>
+															</span>
+															<!-- <a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a> -->
 															<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</a>
 														</button>
 													</div>

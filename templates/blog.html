@@ -90,7 +90,10 @@
 											<!-- discount and quantity -->
 											<button class="btn btn-outline-success  popup"  onclick="cart_detail_view(this)" data-product="{{  tool.pk }}" data-action="add" data-id="product-page">
 												<i class="fad fa-cart-plus"></i>
-												<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{ tool.pk }}">Войти / Регистрация</a>
+												<span class="popuptext" id="PopupNotification{{tool.pk}}">
+													<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Войти</a> / <a href="{% url 'User:register' %}" class="text-white">Регистрация</a>
+												</span>
+												<!-- <a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{ tool.pk }}">Войти / Регистрация</a> -->
 												<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" class="popuptext" id="AlreadyAdded{{tool.pk}}">Добавлено в корзину</a>
 											</button>
 										</div>	

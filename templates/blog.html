@@ -82,9 +82,7 @@
 											<span id="ProductPriceHidden{{  tool.pk }}" hidden>original</span>
 											<input type="text" id="OrderQuantity{{  tool.pk }}" placeholder="1" value="1" min="1" hidden>
 											<!-- discount and quantity -->
-											{% if tool.quantity == 0 %}
-												<span class="text-secondary font-weight-bold">Продано</span>	
-											{% elif tool.discount %}
+											{% if tool.discount %}
 												<span class="text-secondary font-weight-bold">Скидка</span>
 											{% endif %}
 											<!-- discount and quantity -->

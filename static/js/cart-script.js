@@ -60,10 +60,10 @@ function cart_detail_view($this){
 			notif_tag.innerHTML = 'Уже выбрано';
 			notif_tag.classList.toggle("show");
 		}
-		if (data["less_then"] == true){
-			notif_tag.innerHTML = 'доступный продукт - '+data["available_quanity"].toString();
-			notif_tag.classList.toggle("show");
-		}
+		// if (data["less_then"] == true){
+		// 	notif_tag.innerHTML = 'доступный продукт - '+data["available_quanity"].toString();
+		// 	notif_tag.classList.toggle("show");
+		// }
 	  }
 	});
   }

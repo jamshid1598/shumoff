@@ -63,13 +63,9 @@
 											<i class="fa fa-minus pr-1 text-dark"></i>
 										</a>
 										<span>{{ item.quantity }}</span>
-										{% if item.quantity < item.product.quantity %}
-											<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="add" data-id="cart-page" data-optionpk="{{ item.option_pk }}">
-												<i class="fa fa-plus pl-1 text-dark"></i>
-											</a>
-										{% else %}
-										<a href="#!" ><i class="fa fa-plus pl-1 text-dark"></i></a>
-										{% endif %}	
+										<a href="#!" onclick="cart_detail_view(this)" data-product="{{  item.product.pk }}" data-action="add" data-id="cart-page" data-optionpk="{{ item.option_pk }}">
+											<i class="fa fa-plus pl-1 text-dark"></i>
+										</a>
 										<p id="ProductPriceHidden{{ item.product.pk }}" hidden>{{ item.option_pk }}</p>
 									</td>
 									<td class=" text-center pt-4">

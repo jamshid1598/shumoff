@@ -92,17 +92,17 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
 
 
 
-  $('.add-quantity-btn').click(function(){
+  // $('.add-quantity-btn').click(function(){
 
-    var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
-    var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
+  //   var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
+  //   var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
 
-    var productQuantity = parseInt(productQuantityInput, 10); 
+  //   var productQuantity = parseInt(productQuantityInput, 10); 
     
-    productQuantity++;
+  //   productQuantity++;
   
-    productQuantityIpt.value = productQuantity;
-    });
+  //   productQuantityIpt.value = productQuantity;
+  //   });
   
 
 

@@ -76,13 +76,13 @@ def cart_detail_view(request):
 		orderItem.option_discount = product_type.discount
 		orderItem.option_info     = product_opt
 
-		if action == 'add' and pageId == "product-page" and product_type.quantity >= int(order_quantity):
+		if action == 'add' and pageId == "product-page": #  and product_type.quantity >= int(order_quantity)
 			orderItem.quantity   = (orderItem.quantity + int(order_quantity))
 			done_action["added"] = True
 			
-		elif action == 'add' and pageId == "product-page" and product_type.quantity < int(order_quantity):
-			done_action["less_then"] = True
-			done_action["available_quanity"] = product_type.quantity
+		# elif action == 'add' and pageId == "product-page" and product_type.quantity < int(order_quantity):
+		# 	done_action["less_then"] = True
+		# 	done_action["available_quanity"] = product_type.quantity
 
 	elif created == True and price_option_pk == 'original':
 		product_opt = product.product_option
@@ -93,19 +93,19 @@ def cart_detail_view(request):
 		orderItem.option_discount = product.discount
 		orderItem.option_info     = product_opt
 
-		if action == 'add' and pageId == "product-page" and product.quantity >= int(order_quantity):
+		if action == 'add' and pageId == "product-page": #  and product.quantity >= int(order_quantity)
 			orderItem.quantity   = (orderItem.quantity + int(order_quantity))
 			done_action["added"] = True
 
-		elif action == 'add' and pageId == "product-page" and product.quantity < int(order_quantity):
-			done_action["less_then"] = True
-			done_action["available_quanity"] = product.quantity
+		# elif action == 'add' and pageId == "product-page" and product.quantity < int(order_quantity):
+		# 	done_action["less_then"] = True
+		# 	done_action["available_quanity"] = product.quantity
 
 	if created == False and price_option_pk != "original":
 		if action == 'add' and pageId == "product-page": 
 			done_action["already_added"] = True
 
-		elif action == 'add' and pageId == "cart-page" and product_type.quantity > orderItem.quantity:
+		elif action == 'add' and pageId == "cart-page": #  and product_type.quantity > orderItem.quantity
 			orderItem.quantity      = (orderItem.quantity + 1) 
 			done_action["one_more"] = True
 
@@ -116,7 +116,7 @@ def cart_detail_view(request):
 		if action == 'add' and pageId == "product-page": 
 			done_action["already_added"] = True
 
-		elif action == 'add' and pageId == "cart-page" and product.quantity > orderItem.quantity:
+		elif action == 'add' and pageId == "cart-page": #  and product.quantity > orderItem.quantity
 			orderItem.quantity = (orderItem.quantity + 1)
 			done_action["added"] = True
 
@@ -282,7 +282,7 @@ class CategoryDetailView(View):
 	def get(self, request, slug_category=None, slug=None, *args, **kwargs):
 		product=None
 		items = None
-		product_quantity = 0
+		# product_quantity = 0
 
 		if slug_category:
 			category = get_object_or_404(Category, slug=slug_category)
@@ -290,28 +290,28 @@ class CategoryDetailView(View):
 
 		if slug:
 			product = Product.objects.get(category=category, slug=slug)
-			product_quantity = product_quantity + product.quantity
-			print(product_quantity, "\n", product.quantity)
-			if product.product_price_option.all():
-				n=0
-				n = sum([p.quantity for p in product.product_price_option.all()])
-				product_quantity = product_quantity + n
-		else:
-			items = category.product_category.all()
-			for item in items:
-				product = item
-				product_quantity = product_quantity + product.quantity
-				if product.product_price_option.all():
-					n=0
-					n = sum([p.quantity for p in product.product_price_option.all()])
-					product_quantity = product_quantity + n
-				break
+			# product_quantity = product_quantity + product.quantity
+			# print(product_quantity, "\n", product.quantity)
+			# if product.product_price_option.all():
+			# 	n=0
+			# 	n = sum([p.quantity for p in product.product_price_option.all()])
+			# 	product_quantity = product_quantity + n
+		# else:
+		# 	items = category.product_category.all()
+		# 	for item in items:
+		# 		product = item
+		# 		product_quantity = product_quantity + product.quantity
+		# 		if product.product_price_option.all():
+		# 			n=0
+		# 			n = sum([p.quantity for p in product.product_price_option.all()])
+		# 			product_quantity = product_quantity + n
+		# 		break
 			
 		self.context['pk'] = category.pk
 		self.context["category"] = category
 		self.context['category_list'] = category_list
 		self.context["product"]=product
-		self.context["product_quantity"]=product_quantity
+		# self.context["product_quantity"]=product_quantity
 		return render(
 			request,
 			self.template_name,
@@ -394,7 +394,7 @@ class CheckoutDetailView(View):
 					single_price=single_price,
 					total_price = item.get_total,
 				)
-				Product.objects.filter(slug = item.product.slug).update(quantity = F('quantity')-item.quantity)
+				# Product.objects.filter(slug = item.product.slug).update(quantity = F('quantity')-item.quantity)
 				ordered_item.save()
 				item.delete()
 

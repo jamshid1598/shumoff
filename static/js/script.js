@@ -28,18 +28,6 @@ $('.carousel .carousel-item').each(function(){
 
 
 
-
-window.replainSettings = { id: '3620ea29-af84-4de5-b94e-8b4fd4f6a378' };
-(function(u){var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;
-var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
-
-// x=document.getElementsByTagName('script').style.color = "blue";
-
-})('https://widget.replain.cc/dist/client.js');
-
-
-
-
   $(document).ready(function(){
 
     $.fakeLoader({

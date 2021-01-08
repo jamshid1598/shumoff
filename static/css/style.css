@@ -194,8 +194,8 @@
   .btn-top{
       display: none;
       position: fixed;
-      bottom: 30px;
-      right: 15px;
+      bottom: 100px;
+      right: 35px;
       z-index: 99;
       border: 2px solid #eeeeee;
       color: #eeeeee;

@@ -204,6 +204,8 @@
 								price = fields["discount"]
 							}
 
+							//category/<slug:slug_category>/<slug:slug>/
+
 							var quanity = fields["quantity"]
 							var sold_out_img = "{% static 'img/products/sold-out.png'%}"
 							var discount_img = "{% static 'img/products/aksiaya.svg'%}"
@@ -213,14 +215,16 @@
 								`
 									<div class="col-12 col-sm-12 col-md-12 col-lg-12  pl-0 pr-0">
 										<div class="form-inline  justify-content-between p-2 border">
-											<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
-												<h4 class="pl-3">${fields["name"]||""}</h4>
-											</div>
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
-												<h4 class="pr-3">${price||""} ${fields["currency"]||""}</h4>
-			
-											</div> 
+											<a href="">
+												<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
+													<h4 class="pl-3">${fields["name"]||""}</h4>
+												</div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
+													<h4 class="pr-3">${price||""} сум</h4>
+				
+												</div> 
+											</a>
 										</div>
 									</div>
 								`

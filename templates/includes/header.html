@@ -47,8 +47,14 @@
 					</ul>
 				 
 					<div class="float-lg-right headerForm">        
-						<span class="pl-3 span_search m-auto"><i class="fa fa-search text-white" data-toggle="modal" data-target="#searchModal" ></i></span>
-						<span class="pl-2"><a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" onclick="open_cart_panel(this)" id="cart-id"><i class="fas fa-cart-plus text-white"></i></a></span>
+						<span class="pl-3 span_search m-auto">
+							<i class="fa fa-search text-white" data-toggle="modal" data-target="#searchModal" ></i>
+						</span>
+						<span class="pl-2">
+							<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" onclick="open_cart_panel(this)" id="cart-id">
+								<i class="fas fa-cart-plus text-white"></i>
+							</a>
+						</span>
 						<span class="pl-2 dropdown text-center" >
 							<!-- <img src="{% static 'img/icon/user.png' %}" width="30" height="30" class="dropdown-toggle userImg" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 							<i class="fa fa-user dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></i>
@@ -198,6 +204,8 @@
 								price = fields["discount"]
 							}
 
+							//category/<slug:slug_category>/<slug:slug>/
+
 							var quanity = fields["quantity"]
 							var sold_out_img = "{% static 'img/products/sold-out.png'%}"
 							var discount_img = "{% static 'img/products/aksiaya.svg'%}"
@@ -207,14 +215,16 @@
 								`
 									<div class="col-12 col-sm-12 col-md-12 col-lg-12  pl-0 pr-0">
 										<div class="form-inline  justify-content-between p-2 border">
-											<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
-												<h4 class="pl-3">${fields["name"]||""}</h4>
-											</div>
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
-											<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
-												<h4 class="pr-3">${price||""} ${fields["currency"]||""}</h4>
-			
-											</div> 
+											<a href="">
+												<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
+													<h4 class="pl-3">${fields["name"]||""}</h4>
+												</div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
+												<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
+													<h4 class="pr-3">${price||""} сум</h4>
+				
+												</div> 
+											</a>
 										</div>
 									</div>
 								`

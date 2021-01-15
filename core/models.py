@@ -48,8 +48,8 @@ class Product(models.Model):
     slug        = models.SlugField(max_length=320, unique=True)
 
     short_description = models.TextField(blank=True, null=True, verbose_name='Краткое описание')
-    description = models.TextField(verbose_name='Описание')
-    # quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    description = models.TextField(blank=True, null=True, verbose_name='Описание')
+    position    = models.PositiveIntegerField(default=0, verbose_name='Должность')
 
     # class CurrecyChoice(models.TextChoices):
     #     SUM="сум",_('сум')
@@ -64,7 +64,7 @@ class Product(models.Model):
     # discount    = models.CharField(max_length=300, blank=True, null=True, verbose_name="Скидка Цена")
     price_info  = models.CharField(max_length=300, blank=True, null=True, verbose_name="О цене")
     product_option = models.CharField(max_length=300, blank=True, null=True, verbose_name="Вариант продукта")
-    quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    # quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
     category     = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category', verbose_name='Категория:')
     # digital      = models.BooleanField(default=False,null=True, blank=True)
@@ -73,7 +73,7 @@ class Product(models.Model):
     updated_at   = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering            = ['published_at', 'updated_at']
+        ordering            = ['position',]
         verbose_name        = 'Товар'
         verbose_name_plural = 'Товары'
 
@@ -111,11 +111,12 @@ class ProductType(models.Model):
     discount    = models.DecimalField( verbose_name='Скидка Цена', max_digits=10, decimal_places=2, blank=True, null=True, validators=( MinValueValidator(1), MaxValueValidator(100000000),))
     price_info  = models.CharField(max_length=300, blank=True, null=True, verbose_name="О цене")
     product_option = models.CharField(max_length=300, blank=True, null=True, verbose_name="Вариант продукта")
-    quantity    = models.PositiveIntegerField(default=0, verbose_name='Количество')
+    # position    = models.PositiveIntegerField(default=0, verbose_name='Должность')
 
     def __str__(self):
         return self.product.name
     class Meta:
+        # ordering = ["position",]
         verbose_name_plural = "Тип продукта"
 
 class Images(models.Model):

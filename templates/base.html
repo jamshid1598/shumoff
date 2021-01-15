@@ -6,7 +6,8 @@
 
         {% block css %} {% endblock css %}
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript">
             var user = '{{request.user}}'
@@ -107,7 +108,12 @@
               from {opacity: 0;}
               to {opacity:1 ;}
             }
+
             </style>
+
+  
+            <!-- /Yandex.Metrika counter -->
+           
             <link rel="shortcut icon" href="{% static 'img/favinco.ico' %}" type="image/x-icon">
         {% block title %} ШумOff center {% endblock title %}
     </head>
@@ -115,9 +121,11 @@
         <!-- <div class="fakeLoader"></div> -->
         <button class="btn btn-top" title="Прокрутка вверх"><i class="fa fa-angle-up"></i></button>
         
+
         <!-- navbar -->
         {% include "includes/header.html" %}
         <!-- end navbar -->
+
         <!-- messages -->
         {% include "includes/messages.html" %}
         <!-- end messages -->
@@ -132,9 +140,17 @@
         {% include "includes/footer.html" %}
         <!-- end footer -->
 
+
         {% block js %} {% endblock js %}
+       
         
+
         <script type="text/javascript" src="{% static 'js/cart-script.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/snowflake.min.js' %}"></script>
+        
+        <script>const snowflake = new SnowflakeJs(50,150,1,5,30);
+          snowflake.init();
+        </script>
 
     </body>
 </html>

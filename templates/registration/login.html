@@ -20,15 +20,16 @@
 	{% block title %} <title>Авторизоваться</title> {% endblock title %}
 
 	{% block body %}
-		<div class="container-fluid loginForm" style="min-height: 72.6vh; ">
+		<div class="container-fluid loginForm" style="min-height: 78.7vh; ">
 		
 				<div class="card border-0 w-100">
-					<div class="card-body border text-center" style="margin: auto;">
+					<div class="card-body border text-center" style="margin:50px auto;">
 						<h3 class="text-dark pb-5">Авторизоваться</h3>
-						<form  class="" method="POST" action="{% url 'login' %}">
+						
+						<form  class="" method="POST" action="{% url  'login' %}">
 
 							{% csrf_token %}
-                            <input id="id_username" name="username" placeholder="Email" type="text" class="form-control mb-1">
+							<input id="id_username" name="username" placeholder="Email" type="text" class="form-control mb-1">
                             <input id="id_password" name="password" placeholder="password" type="password" class="form-control mb-5">
 
 							<button class="btn btn-block login_btn" type="submit">Войти</button>

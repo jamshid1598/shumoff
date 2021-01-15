@@ -25,18 +25,10 @@ $('.carousel .carousel-item').each(function(){
 
 
 
-
-
-
-
-window.replainSettings = { id: '3620ea29-af84-4de5-b94e-8b4fd4f6a378' };
+window.replainSettings = { id: 'e977c27a-cfa5-4635-be9d-c2db2f6ba9c2' };
 (function(u){var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;
 var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
-
-// x=document.getElementsByTagName('script').style.color = "blue";
-
 })('https://widget.replain.cc/dist/client.js');
-
 
 
 
@@ -92,17 +84,17 @@ var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
 
 
 
-  $('.add-quantity-btn').click(function(){
+  // $('.add-quantity-btn').click(function(){
 
-    var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
-    var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
+  //   var productQuantityIpt = $(this).closest(".quantityBtnGroup").find(".quantity-input");
+  //   var productQuantityInput = $(this).closest(".quantityBtnGroup").find(".quantity-input").value;
 
-    var productQuantity = parseInt(productQuantityInput, 10); 
+  //   var productQuantity = parseInt(productQuantityInput, 10); 
     
-    productQuantity++;
+  //   productQuantity++;
   
-    productQuantityIpt.value = productQuantity;
-    });
+  //   productQuantityIpt.value = productQuantity;
+  //   });
   
 
 

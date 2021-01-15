@@ -127,15 +127,16 @@
 															<i class="fad fa-info"></i>
 														</button>
 														<!-- discount and quantity -->
-														{% if product.quantity == 0 %}
-															<span class="text-secondary font-weight-bold">Продано</span>	
-														{% elif product.discount %}
+														{% if product.discount %}
 															<span class="text-secondary font-weight-bold">Скидка</span>
 														{% endif %}
 														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
-															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a>
+															<span class="popuptext" id="PopupNotification{{product.pk}}">
+																<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Войти</a> / <a href="{% url 'User:register' %}" class="text-white">Регистрация</a>
+															</span>
+															<!-- <a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">login / sign up</a> -->
 															<p class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</p>
 														</button>
 													</div>
@@ -168,15 +169,16 @@
 															<i class="fad fa-info"></i>
 														</button>
 														<!-- discount and quantity -->
-														{% if product.quantity == 0 %}
-															<span class="text-secondary font-weight-bold">Продано</span>	
-														{% elif product.discount %}
+														{% if product.discount %}
 															<span class="text-secondary font-weight-bold">Скидка</span>
 														{% endif %}
 														<!-- discount and quantity -->
 														<button class="btn btn-success add-to-basket popup" onclick="cart_detail_view(this)" data-product="{{  product.pk }}" data-action="add" data-id="product-page" >
 															<i class="fad fa-cart-plus"></i>
-															<a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a>
+															<span class="popuptext" id="PopupNotification{{product.pk}}">
+																<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Войти</a> / <a href="{% url 'User:register' %}" class="text-white">Регистрация</a>
+															</span>
+															<!-- <a href="{% url 'login' %}?next={{request.path}}" class="popuptext" id="PopupNotification{{product.pk}}">Войти / Регистрация</a> -->
 															<a href="{% url 'Core:cart-detail-view' %}?next={{ request.path }}" class="popuptext" id="AlreadyAdded{{product.pk}}">Добавлено в корзину</a>
 														</button>
 													</div>
@@ -364,8 +366,8 @@
 
 			<section class="container-fluid pt-5 pb-5 pl-0 pr-0" id="news_section">
 				<h3 class="font-weight-bold text-center shadow m-auto">Главные новости</h3>
-				<div class="row w-75 m-auto imglist m-auto">
-					<div class="col-12 col-sm-12 col-md-12 col-lg-9 m-auto">
+				<div class="row m-auto imglist m-auto pt-5">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-9 m-auto ">
 						<div class="row ml-0 mr-0">
 							{% for img in news_imgs %}
 								<div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-1">

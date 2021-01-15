@@ -14,3 +14,7 @@ how to use signals tutorial => https://simpleisbetterthancomplex.com/tutorial/20
 
 
 popup notification dan cart page ga utish
+
+generic views source code => https://ccbv.co.uk/projects/Django/3.0/django.contrib.auth.views/LoginView/
+                          => https://django.fun/ru/cbv/Django/3.0/django.contrib.auth.views/LoginView/
+                          => https://gist.github.com/amccloud/2201802

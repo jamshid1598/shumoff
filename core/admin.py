@@ -47,11 +47,11 @@ class ProductTypeAdmin(admin.TabularInline):
 class ProductAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [ProductTypeAdmin, ProductImageAdmin]
      
-    list_display       = ('category', 'name', 'price', 'discount', "product_option", "quantity", 'published_at', 'updated_at', )
+    list_display       = ('category', 'name', 'price', 'discount', "product_option", 'position', 'published_at', 'updated_at', )
     list_display_links = ('name', 'published_at', 'updated_at', )
-    search_fields      = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
-    ordering           = ('name', 'price', 'discount', 'category', 'published_at', 'updated_at', )
-    list_editable      = ('price', 'discount',   'category', "quantity", )
+    search_fields      = ('name', 'price', 'discount', 'position', 'published_at', 'updated_at', )
+    ordering           = ('name', 'price', 'discount', 'category', 'position', 'published_at', 'updated_at', )
+    list_editable      = ('price', 'discount',   'category', 'position', "product_option",)
 
 
     prepopulated_fields = {'slug': ('name', )}
@@ -70,7 +70,7 @@ class ProductAdmin(AdminImageMixin, admin.ModelAdmin):
         }),
         ('Товар', {
             "fields": (
-                ('name', 'slug', 'short_description', 'description', 'price', 'discount', 'price_info', 'product_option', 'quantity')
+                ('name', 'slug', 'position', 'short_description', 'description', 'price', 'discount', 'price_info', 'product_option',)
             ),
         }),
     )

@@ -135,11 +135,6 @@
 		</div>
 	</div>
 
-
-
-
-
-
 	<script>
 	
 		function search_query($this){
@@ -167,7 +162,7 @@
 				})
 				.then((data) => {
 					// var notif_tag = document.getElementById('AlreadyAdded'+productPk.toString());
-					if (data == "нет продукта"){
+					if (data == "nothing"){
 						$("#search-result-modal").html("");
 						$("#search-result-modal").prepend(
 							
@@ -212,9 +207,7 @@
 								price = fields["discount"]
 							}
 
-							//category/<slug:slug_category>/<slug:slug>/
-
-							//var quanity = fields["quantity"]
+						
 							var c_slug  = category_slug[fields["category"]]
 							var imageURL = image_url[instance[i]["pk"]]
 
@@ -252,60 +245,3 @@
   
 	</script>
 	<!-- End Script -->
-
-
-
-
-	{% comment %}
-	  
-
-
-	function search_queryy($this){
-		console.log("button clicked");
-		
-		event.preventDefault();
-
-		// var request_data = $this.action;
-		var query = document.getElementById('search_input_field').value
-
-		console.log("data: " + query);
-		$.ajax({
-			type: 'GET',
-			url: "{% url 'Core:search_query' %}",
-			data : JSON.stringify({'query': query,}),
-			success: function(response) {
-				var instance = JSON.parse(response["instance"]);
-				//var image_url = response["image_url"];
-				//var fields = instance[0]["fields"];
-				// ${fields["name"]||""}
-				console.log(instance)
-
-				$("#search-result-modal").html("");
-				$("#search-result-modal").prepend(
-					`
-						<div class="col-12 col-sm-12 col-md-12 col-lg-12 form-inline justify-content-between border pl-0 pr-0">
-							<div class="row m-0">
-								<div class="col-4 col-sm-4 col-md-4 col-lg-4 pl-0 pr-0">
-									<img src="{% static 'img/products/section1/1.jpg' %}" width="100%" height="100" alt="">
-								</div>
-								<div class="col-4 col-sm-4 col-md-4 col-lg-6 pt-3">
-									<h6>Шумоff Specific в деталях (Специфик)</h6>
-								</div>
-								<div class="col-4 col-sm-4 col-md-4 col-lg-2 pt-4">
-									654512$
-								</div>
-							</div>
-						</div>	
-					`
-				)
-			},
-			error: function() { 
-				console.log('Houston, we have a problem!');
-			}
-		});
-	}
-
-
-
-
-	{% endcomment %}

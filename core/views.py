@@ -671,7 +671,7 @@ def search_query(request, *args, **kwargs):
 			print("Error occured: ", e)
 		return JsonResponse(json_data, safe=False, status=200)
 	else:
-		object_list_json = "нет продукта"
+		object_list_json = "nothing"
 		return JsonResponse(object_list_json, safe=False, status=200)
 	return Http404
 

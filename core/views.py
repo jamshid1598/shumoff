@@ -647,16 +647,29 @@ def search_query(request, *args, **kwargs):
 	query = data['query']
 
 	object_list = None
+	image_url = {}
+	category_slug = {}
+
 	if len(query) > 0:
 			object_list = Product.objects.filter(
-				Q(name__icontains=query) or Q(slug__icontains=query) or Q(description__icontains=query) 
+				Q(name__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query) 
 			)
 	if object_list.count() > 0:
+		for obj in object_list:
+			image_url[obj.pk] = obj.imageURL
+			category_slug[obj.category.pk] = obj.category.slug 
+		print(category_slug)
 		try:
 			object_list_json = serializers.serialize('json', object_list, cls=LazyEncoder, ensure_ascii=True)
+			image_url_json = json.dumps(image_url)
+			category_slug_json = json.dumps(category_slug)
+
+			json_data = {"object_list_json": object_list_json, "image_url_json":image_url_json, "category_slug_json":category_slug_json}
+
+			print(image_url_json)
 		except Exception as e:
 			print("Error occured: ", e)
-		return JsonResponse(object_list_json, safe=False, status=200)
+		return JsonResponse(json_data, safe=False, status=200)
 	else:
 		object_list_json = "нет продукта"
 		return JsonResponse(object_list_json, safe=False, status=200)

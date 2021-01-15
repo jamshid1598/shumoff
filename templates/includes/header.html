@@ -92,7 +92,7 @@
 				<div class="modal-body">
 					<form method="get">						
 						<div class="input-group mb-3">
-							<input type="text" id="search_input_field" class="form-control" placeholder="Введите название продукта, который вы ищете" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+							<input type="text" id="search_input_field" class="form-control" placeholder="Введите название продукта, который вы ищете" aria-label="Recipient's username" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<button type="submit" class="input-group-text" id="basic-addon2" onclick="search_query(this)" data-action="search" data-toggle="modal" data-target="#searchModalResult" >поиск</button>
 							</div>
@@ -116,24 +116,17 @@
 					</button>
 				</div>
 				<div class="modal-body">			
-					<div class="row m-auto" style="height: 300px; overflow-y: scroll;" id="search-result-modal">
+					<div class="row m-auto" style="height: 300px; overflow-y: scroll;">
 						<div class="col-12 col-sm-12 col-md-12 col-lg-12  pl-0 pr-0">
-							<div class="row m-0 p-2 border">
-								
-								
-								<!-- <div class="col-4 col-sm-4 col-md-4 col-lg-4 pl-0 pr-0">
-									<img src="{% static 'img/products/aksiaya.svg'%}" width="100%" height="200" class="card-img-overlay" style="margin-left: -192px; margin-top:-42px; transform: rotate(17deg); z-index:1;">
-									<img src="{% static 'img/products/sold-out.png'%}" width="50" height="50" class="card-img-overlay" style="transform: rotate(-35deg); z-index:1; margin-top: 0px; margin-left:70px;">
-									<img src="{% static 'img/products/section1/1.jpg' %}" width="100%" height="100" alt="">
-								</div> -->
-								<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
+							<div class="row m-0 p-2 border" id="search-result-modal">
+								<!-- <div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
 									<h4 class="pl-3">Демонстрационный стенд «Тихие трубы»</h4>
 								</div>
 								<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
 								<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
 									<h4 class="pr-3">12$</h4>
 
-								</div> 
+								</div>  -->
 							</div>
 						</div>	
 					</div>
@@ -154,9 +147,11 @@
 			event.preventDefault();
 
 			var query = document.getElementById('search_input_field').value
+			document.getElementById("search_input_field").value = ""
 			var url =  "{% url 'Core:search_query' %}"
-			console.log(query)
-			if (query.length != 0){
+			//console.log(query)
+			var str = query.replace(/\s+/g, '')
+			if (str.length != 0){
 			
 				fetch(url, {
 					method:'POST',
@@ -175,26 +170,39 @@
 					if (data == "нет продукта"){
 						$("#search-result-modal").html("");
 						$("#search-result-modal").prepend(
+							
 							`
-								<div class="col-12 col-sm-12 col-md-12 col-lg-12 form-inline justify-content-between border pl-0 pr-0">
-									<div class="row m-0">
-										<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-											<h6>Нет продукта</h6>
-										</div>
-									</div>
-								</div>	
-							`
+								<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4 text-center">
+									<h4 class="pl-3">Нет продукта</h4>
+								</div>
+							` 
+							
 						)
 					} else {
-						
-						var instance = JSON.parse(data);
+						//console.log(data)
+						// var instance = JSON.parse(data);
 						$("#search-result-modal").html("");
 
+
+
+						//console.log(data["category_slug_json"])
+						//console.log(data["image_url_json"])
+						//console.log(data["object_list_json"])
+						var category_slug = JSON.parse(data["category_slug_json"])
+						var instance = JSON.parse(data["object_list_json"]);
+						var image_url = JSON.parse(data["image_url_json"]);
+
+						console.log(category_slug)
+						console.log(instance)
+
+
+
+						
 						for ( var i = 0; i < instance.length; i++){
 							var fields = instance[i]["fields"];
-							console.log(instance)
+							//console.log(instance)
 							// var fields = data
-							console.log("fields", fields)
+							//console.log("fields", fields)
 
 							var discount = fields["discount"]
 							var price = 0
@@ -206,43 +214,37 @@
 
 							//category/<slug:slug_category>/<slug:slug>/
 
-							var quanity = fields["quantity"]
-							var sold_out_img = "{% static 'img/products/sold-out.png'%}"
-							var discount_img = "{% static 'img/products/aksiaya.svg'%}"
-							
+							//var quanity = fields["quantity"]
+							var c_slug  = category_slug[fields["category"]]
+							var imageURL = image_url[instance[i]["pk"]]
+
+							console.log("category: ", c_slug)
 							
 							$("#search-result-modal").prepend(
 								`
-									<div class="col-12 col-sm-12 col-md-12 col-lg-12  pl-0 pr-0">
-										<div class="form-inline  justify-content-between p-2 border">
-											<a href="">
-												<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
-													<h4 class="pl-3">${fields["name"]||""}</h4>
-												</div>
-												<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
-												<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
-													<h4 class="pr-3">${price||""} сум</h4>
-				
-												</div> 
-											</a>
-										</div>
+									<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
+										<img src="">
+									</div>	
+									<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4">
+										<a href="/category/${c_slug}/${fields["slug"]}/#productPosition${instance[i]["pk"]}"><h4 class="pl-3">${fields["name"]||""}</h4></a>
 									</div>
+									<div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
+									<div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-4">
+										<h4 class="pr-3">${price||""} сум</h4>
+									</div> 
 								`
 							)
 						}
+						
 					}
 				});
 			} else {
 				$("#search-result-modal").html("");
 				$("#search-result-modal").prepend(
 					`
-						<div class="col-12 col-sm-12 col-md-12 col-lg-12 form-inline justify-content-between border pl-0 pr-0">
-							<div class="row m-0">
-								<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-									<h6>Нет продукта</h6>
-								</div>
-							</div>
-						</div>	
+						<div class="col-8 col-sm-8 col-md-8 col-lg-8 pt-4 text-center">
+							<h4 class="pl-3">Нет продукта</h4>
+						</div>
 					`
 				)
 			}

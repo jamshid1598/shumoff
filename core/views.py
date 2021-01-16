@@ -5,13 +5,10 @@ from django.views import View
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template import defaultfilters
 from django.conf import settings
-from django.db.models import F
 from django.core.mail import send_mail
 from django.contrib import messages
-from django.conf import settings
 from datetime import datetime
-from django.db.models import Case, Value, When
-from django.db.models import Q
+from django.db.models import Case, Value, When, F, Q
 from django.views.generic import (
 	ListView,
 	DetailView,
@@ -22,9 +19,7 @@ from cart.models import (
 	Customer,
 	Order,
 	OrderItem,
-	# ShippingAddress,
 	OrderedItem,
-
 	ArticleModel, 
 )
 from main.models import (

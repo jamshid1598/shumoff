@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemap scheme="1.0">
+  <title>Shumoff</title>
+  <version>1.0</version>
+  <link>http://shumoff.uz/</link>
+  <pubDate> Wed, 10 Jan 2021 11:39:20 +0500</pubDate>
+  <logo type="image">40787</logo>
+  <settings>
+    <language>ru_RU</language>
+  </settings>
+
+  <section id="svgmainsection">
+    <options>
+      <template>horizontal</template>
+      <design>gradient</design>
+      <color_scheme>
+        <home>#3eadec</home>
+        <level1>#6fc4e4</level1>
+        <level2>#86d6dc</level2>
+        <level3>#ccf8f8</level3>
+        <level4>#b2ddee</level4>
+        <util>#79ddf9</util>
+        <foot>#79ddf9</foot>
+      </color_scheme>
+      <text_shadow>false</text_shadow>
+      <id>svgmainsection</id>
+    </options>
+    <cells>
+      <cell id="svgz66gjg5c7msb2ybf">
+        <level>home</level>
+        <text>Home Page</text>
+        <order>1</order>
+      </cell>
+      <cell id="svgqxvzhoh11zjg24s6">
+        <level>util</level>
+        <text>Plans &amp; Pricing</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgft4xepk9bnd7syp8">
+        <level>util</level>
+        <text>About Us</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgbq4ir39xn6i08aeg">
+        <level>util</level>
+        <text>Contact</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgdkttcqt4l8t4s8ch">
+        <level>util</level>
+        <text>Sign-Up</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svggk1u1knf1ex081rs">
+        <level>foot</level>
+        <text>Footer</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgf7fd52zurqz7hv68">
+        <level>1</level>
+        <text>Products</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgjo5ce8nbevugbirt">
+        <level>1</level>
+        <text>Solutions</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgedvegosrtv1q11z3">
+        <level>1</level>
+        <text>Blog</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgxkwddgk5g91y2m6n">
+        <level>1</level>
+        <text>Resource Center</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svgggv8b1c7kmdmjb8l">
+        <level>1</level>
+        <text>Help &amp; Support</text>
+        <order>5000</order>
+      </cell>
+      <cell id="svgx6gn35u1f6yzrskd">
+        <parent>svgxkwddgk5g91y2m6n</parent>
+        <level>2</level>
+        <text>Anti-Intrusion</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgepgls1lkvbh4jeht">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>Site Secure</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgfu7mdezlnkziepm3">
+        <parent>svgjo5ce8nbevugbirt</parent>
+        <level>2</level>
+        <text>URL Spoofing Monitoring</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svghz1l4n2cy61t7wdm">
+        <parent>svgedvegosrtv1q11z3</parent>
+        <level>2</level>
+        <text>Categories</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgrnuznjpbmvql9tre">
+        <parent>svgggv8b1c7kmdmjb8l</parent>
+        <level>2</level>
+        <text>Product Support</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgnxwu2twb2krzxmkp">
+        <parent>svgxkwddgk5g91y2m6n</parent>
+        <level>2</level>
+        <text>Thwarting Hackers</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svghx64fqsfpvkuxu3w">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>Site Secure Pro</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgwj9ok3at5qujrjrn">
+        <parent>svgjo5ce8nbevugbirt</parent>
+        <level>2</level>
+        <text>Intrusion Detection</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgev3fl1wtd2k632u8">
+        <parent>svgjo5ce8nbevugbirt</parent>
+        <level>2</level>
+        <text>Malicious Code Blocking</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgecr6i6rb6f4kl607">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>Site Secure Enterprise</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgld9p59sipfpiz7h3">
+        <parent>svgxkwddgk5g91y2m6n</parent>
+        <level>2</level>
+        <text>Securing Websites</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgue8vp5tx77ozbqdp">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>Bit Tracker</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svgfez9fauj1a5ts97e">
+        <parent>svgjo5ce8nbevugbirt</parent>
+        <level>2</level>
+        <text>SSL Status Monitoring</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svgdkruyzvg0o45dhom">
+        <parent>svgjo5ce8nbevugbirt</parent>
+        <level>2</level>
+        <text>Anti-Hacking Monitoring</text>
+        <order>5000</order>
+      </cell>
+      <cell id="svgapxfeatua2kpsm68">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>SSL Monitor</text>
+        <order>5000</order>
+      </cell>
+      <cell id="svgm4eanixk7xynrgr9">
+        <parent>svgf7fd52zurqz7hv68</parent>
+        <level>2</level>
+        <text>URL Lock</text>
+        <order>6000</order>
+      </cell>
+      <cell id="svggchptk51tsp3u8ax">
+        <parent>svgrnuznjpbmvql9tre</parent>
+        <level>3</level>
+        <text>Site Secure Help</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgrurum2mqox65738v">
+        <parent>svghz1l4n2cy61t7wdm</parent>
+        <level>3</level>
+        <text>Company News</text>
+        <order>1000</order>
+      </cell>
+      <cell id="svgur2lkbqm02v9v2u4">
+        <parent>svgrnuznjpbmvql9tre</parent>
+        <level>3</level>
+        <text>Bit Tracker Help</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgdveddi3yg57tplmp">
+        <parent>svghz1l4n2cy61t7wdm</parent>
+        <level>3</level>
+        <text>Product Updates</text>
+        <order>2000</order>
+      </cell>
+      <cell id="svgze810x16a9qw0szp">
+        <parent>svgrnuznjpbmvql9tre</parent>
+        <level>3</level>
+        <text>SSL Monitor Help</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgzxojt24o10v5n51h">
+        <parent>svghz1l4n2cy61t7wdm</parent>
+        <level>3</level>
+        <text>Industry News</text>
+        <order>3000</order>
+      </cell>
+      <cell id="svgdaqha467pu6tsru1">
+        <parent>svgrnuznjpbmvql9tre</parent>
+        <level>3</level>
+        <text>URL Lock Help</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svgsqukl3e6p2njngel">
+        <parent>svghz1l4n2cy61t7wdm</parent>
+        <level>3</level>
+        <text>Encryption</text>
+        <order>4000</order>
+      </cell>
+      <cell id="svgjjphifox3g5tfz79">
+        <parent>svghz1l4n2cy61t7wdm</parent>
+        <level>3</level>
+        <text>Site Security</text>
+        <order>5000</order>
+      </cell>
+    </cells>
+  </section>
+</sitemap>

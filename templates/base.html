@@ -2,13 +2,35 @@
 
 <!DOCTYPE html>
 <html>
+
 	<head>
 
         {% block css %} {% endblock css %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Husniddin Abdurasulov, Zoxidjon Ergashev, Jamshid Dovurov" />
+
+        <!-- Primary Meta Tags -->
+        <meta name="title" content="Shumoff.uz">
+        <meta name="description" content="Cамый большой центр шумоизоляционных материалов. Большой ассортимент изоляционных материалов">
+        <meta name="keywords" content="автомобиль шумоизоляция, шумоизоляционный материал, шумоизоляция авто, шумоизоляция дверь, шумоизоляция купить, шумоизоляция материал, шумоизоляция цена, шумоизоляция шумофф, шумоизоляция шумофф купить, шумофф">
+
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        
+
+       <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-188496439-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-188496439-1');
+        </script>
+
+        
         <script type="text/javascript">
             var user = '{{request.user}}'
 
@@ -146,18 +168,6 @@
         
 
         <script type="text/javascript" src="{% static 'js/cart-script.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/snowflake.min.js' %}"></script>
         
-        <script>const snowflake = new SnowflakeJs(50,150,1,5,30);
-          snowflake.init();
-        </script>
-
     </body>
 </html>
-
-
-
-
-
-
-

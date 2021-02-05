@@ -10,57 +10,78 @@
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/fakeLoader.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}">
+		
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+
 		<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<style>
+			.carousel-caption{
+				font-size: 40px;
+			}
+			#me{
+			  display:block;
+			  text-align:center;
+			  text-align:center;
+			  padding:5px;
+			  font-size:1.2em;
+			}
+		
+			.swiper-container{
+			  width:100%;
+			  overflow:hidden;
+			  
+			}
+		
+			.swiper-slide{
+		
+			  overflow:hidden;
+			  width:100%;
+			}
+			@media (max-width:992px){ 
+				
+				.carousel-caption{
+					font-size: 1.6em;
+				}
+			   }
 
+			@media (max-width:776px){ 
+				
+			  .carousel-caption{
+				  font-size: 1.3em;
+			  }
+			 }
+
+			@media (max-width:576px){ 
+			  .swiper-container{
+			   height:100%;
+			 }
+			 
+			.carousel-caption{
+				font-size: 1em;
+			}
+		   }
+		 </style>
 	{% endblock css %}
 
 	{% block title %} <title>ШумOff Center</title> {% endblock title %}
 
 	{% block body %}
 
-		<section class="slider-section mt-md-5 pt-md-5 mt-sm-5 pt-sm-5">
-			<div id="carousel" class="carousel slide pt-md-3 pt-sm-5" data-ride="carousel">
-			  <ol class="carousel-indicators">
-				<li data-target="#carousel" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel" data-slide-to="1"></li>
-				<li data-target="#carousel" data-slide-to="2"></li>
-			  </ol> 
-			  <div class="carousel-inner" role="listbox">
-
-				{% for img in home_imgs %}
-				  
-				  {% if forloop.counter == 1 %}
-				  <div class="carousel-item active">
-					<h1 class="carousel-caption" id="carouselHeaderCaption" style=" text-shadow: 3px 0px #000000;">
-						{{ img.caption }}
-					</h1>
-					
-					<img src="{{ img.imageURL }}" height="100%" alt="img1" style="width: 100%; size:cover; ">
-				  </div> 
-				  {% else %}
-				  <div class="carousel-item ">
-					<h1 class="carousel-caption" id="carouselHeaderCaption" >
-						<!-- {{ img.caption }} -->
-					</h1>
-					
-					<img src="{{ img.imageURL }}" height="100%" alt="img1" style="width: 100%; size:cover; ">
-				  </div> 
-				  {% endif %}
-				{% endfor %}
-				
-			  </div> 
-			  <a href="#carousel" class="carousel-control-prev" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only"></span>
-			  </a>
-			  <a href="#carousel" class="carousel-control-next" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only"></span>
-			  </a>
-			</div> 
-		  </section>
-
+	<section class="container-fluid pt-5 pl-0 pr-0">
+		<div class="swiper-container">
+		  <div class="swiper-wrapper pt-5 text-center">  
+			{% for image in home_imgs %}
+			<div class="swiper-slide">
+			  <h1 class="carousel-caption" style="left:0; bottom: 50%; width:42%;">
+				{{ image.caption }}</h1>
+			  <img src="{{ image.imageURL }}" width="100%">
+			</div>
+			{% endfor %}
+		  </div>
+		</div>
+	  </section>
 
 		<section class="container-fluid pl-0 pr-0 w-100" id="main_container">
 
@@ -394,9 +415,23 @@
 		<script src="{% static 'js/fakeLoader.js' %}"></script>
 		<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
 		<script src="{% static 'js/wow.js' %}"></script>
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 		<script src="{% static 'js/script.js' %}"></script>
 		<script>
 			new WOW().init();
+
+				var mySwiper = new Swiper('.swiper-container',{
+				  speed: 1000,
+				  spaceBetween: 0,
+				  grabCursor:true,
+				  autoplay:{
+					autoplay:true,
+					delay:4000,                             
+					disableOnInteraction:false         
+				  }                       
+				});
+
+
 		</script>
 	{% endblock js %}
 

@@ -19,6 +19,9 @@
 		<style>
 			.carousel-caption{
 				font-size: 40px;
+				left:10px; 
+				bottom: 50%; 
+				width:42%;
 			}
 			#me{
 			  display:block;
@@ -43,6 +46,7 @@
 				
 				.carousel-caption{
 					font-size: 1.6em;
+					bottom:40%;
 				}
 			   }
 
@@ -50,7 +54,8 @@
 				
 			  .carousel-caption{
 				  font-size: 1.3em;
-			  }
+				  bottom:30%;
+				}
 			 }
 
 			@media (max-width:576px){ 
@@ -59,8 +64,12 @@
 			 }
 			 
 			.carousel-caption{
-				font-size: 1em;
+				font-size: 0.8em;
+				bottom:5%;
+				top: 10%;
+				left:0px;
 			}
+
 		   }
 		 </style>
 	{% endblock css %}
@@ -74,7 +83,7 @@
 		  <div class="swiper-wrapper pt-5 text-center">  
 			{% for image in home_imgs %}
 			<div class="swiper-slide">
-			  <h1 class="carousel-caption" style="left:0; bottom: 50%; width:42%;">
+			  <h1 class="carousel-caption">
 				{{ image.caption }}</h1>
 			  <img src="{{ image.imageURL }}" width="100%">
 			</div>
